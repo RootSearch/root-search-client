@@ -134,6 +134,23 @@ header > #sub-title-container > #sub-title {
 #root-context > #result-container.root-mode {
   height: 100%;
 }
+#root-context > #result-container > #result-body {
+  height: 100%;
+  width: 100%;
+}
+
+#root-context > #result-container > #result-body.search-mode {
+  display: none;
+}
+
+#root-context > #result-container > #result-body.root-mode {
+  display: block;
+}
+#root-context > #result-container > #result-body > #result-background {
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+}
 
 #root-context > .node-container.root {
   position: relative !important;
