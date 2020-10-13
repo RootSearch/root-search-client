@@ -34,11 +34,15 @@ class Controller {
    */
 
   BaseView_ShowOverlay = () => {
-    $(".node-container.root").toggleClass("fall-down");
-    setTimeout(() => {
+    if ($("body").hasClass("search-mode")) {
+      $(".node-container.root").toggleClass("fall-down default");
+      setTimeout(() => {
+        $(".dynamic-view").toggleClass("search-mode root-mode");
+        $(".node-container.root").toggleClass("fall-down default");
+      }, 2000);
+    } else {
       $(".dynamic-view").toggleClass("search-mode root-mode");
-      $(".node-container.root").toggleClass("fall-down");
-    }, 2000);
+    }
 
     // this._model.ChangeViewModel([
     //   { view: "base-view", object: "text-input", data: { show: true } },

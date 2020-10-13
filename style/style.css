@@ -26,12 +26,8 @@ div {
   -webkit-user-select: none;
   user-select: none;
 }
-body.search-mode {
+body {
   background-color: #ece0d1;
-}
-
-body.root-mode {
-  background-color: #38220f;
 }
 
 .dynamic-view {
@@ -90,7 +86,6 @@ header > #sub-title-container > #sub-title {
 #search-context.dynamic-view.search-mode {
   color: #38220f;
   margin-top: 0px;
-  margin-bottom: 50px;
 }
 #search-context.dynamic-view.root-mode {
   color: #ece0d1;
@@ -109,16 +104,47 @@ header > #sub-title-container > #sub-title {
   font-size: 30px;
   font-weight: 600;
 }
+#root-context {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+#root-context.search-mode {
+  height: 40%;
+}
+
+#root-context.root-mode {
+  height: 95%;
+}
+
+#root-context > #result-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #38220f;
+  transition: all 0.25s ease;
+}
+#root-context > #result-container.search-mode {
+  height: 50%;
+}
+
+#root-context > #result-container.root-mode {
+  height: 100%;
+}
 
 #root-context > .node-container.root {
   position: relative !important;
   margin: 0 auto;
+  margin-top: 1%;
+  transition-duration: 0.25s;
 }
 
 #root-context > .node-container.root.fall-down {
-  margin-top: 275px;
+  margin-top: 12.5%;
   transform: rotate(90deg);
-
   transition-duration: 1.5s;
   transition-timing-function: ease-in;
 }
@@ -161,22 +187,6 @@ header > #sub-title-container > #sub-title {
   left: 20%;
   pointer-events: none;
   /* filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5)); */
-}
-
-#root-context > #result-container {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: -1;
-  background-color: #38220f;
-}
-#root-context > #result-container.search-mode {
-  height: 15%;
-}
-
-#root-context > #result-container.root-mode {
-  height: 100%;
 }
 
 .overlay {
