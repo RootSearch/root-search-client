@@ -7,9 +7,16 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Noto Sans KR", "Montserrat", sans-serif;
-  transition: 0.7s all;
   overflow: hidden;
   height: 100vh;
+}
+input {
+  background-color: #00000000;
+  border: none;
+  border-bottom: #38220f 3px solid;
+}
+input:focus {
+  outline: none;
 }
 img,
 div {
@@ -19,61 +26,159 @@ div {
   -webkit-user-select: none;
   user-select: none;
 }
-body {
-  background-color: #f8e3e8;
-}
-header > #logo {
-  display: block;
-  pointer-events: none;
-  width: 400px;
-  margin: 0 auto;
-  margin-top: 50px;
-}
-header > #title {
-  font-weight: 900;
-  font-size: 6em;
-  text-align: center;
-  text-shadow: 0 0 2px #666;
-  color: #222222;
-  margin: 20px 0 0 0;
-  line-height: 1;
+body.search-mode {
+  background-color: #ece0d1;
 }
 
-header > #sub-title {
-  font-weight: 600;
-  font-size: 2.75em;
-  text-align: center;
-  text-shadow: 0 0 2px #666;
-  color: #525252;
-  margin-bottom: 60px;
+body.root-mode {
+  background-color: #38220f;
 }
-#context > #button-section {
-  position: relative;
+
+.dynamic-view {
+  transition: all 0.5s ease;
+}
+
+header.search-mode {
+  padding-top: 10%;
+}
+header.root-mode {
+  padding-top: 0;
+  background-color: #ece0d1;
+}
+
+header > #title {
+  color: #38220f;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotateX(180deg);
+}
+
+header > #title.search-mode {
+  text-align: center;
+  font-size: 120px;
+}
+
+header > #title.root-mode {
+  text-align: left;
+  font-size: 50px;
+  margin-left: 75px;
+}
+
+header > #sub-title-container {
+  margin-bottom: 100px;
+  margin-top: -80px;
+}
+
+header > #sub-title-container.search-mode {
+  display: block;
+}
+
+header > #sub-title-container.root-mode {
+  display: none;
+}
+
+header > #sub-title-container > #sub-title {
+  font-weight: 900;
+  font-size: 125px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 3px #dbc1ac;
+  color: #967259;
+  transform: perspective(800px) rotateX(60deg);
+}
+
+#search-context.dynamic-view.search-mode {
+  color: #38220f;
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+#search-context.dynamic-view.root-mode {
+  color: #ece0d1;
+  margin-top: -46px;
+  margin-bottom: 25px;
+}
+
+#search-context > #search-container {
+  text-align: center;
+}
+#search-context > #search-container > #search-bar {
+  color: inherit;
+  width: 35%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+#root-context > .node-container.root {
+  position: relative !important;
+  margin: 0 auto;
+}
+
+#root-context > .node-container.root.fall-down {
+  margin-top: 275px;
+  transform: rotate(90deg);
+
+  transition-duration: 1.5s;
+  transition-timing-function: ease-in;
+}
+
+#root-context > .node-container {
+  position: absolute;
   display: flex;
   align-items: center;
-  margin: 0 auto;
-  width: 240px;
-  height: 240px;
+  width: 100px;
+  height: 100px;
 }
-#context > #button-section > #button-core {
+
+#root-context > .node-container > .effect-halo {
+  pointer-events: none;
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.75;
+  background-color: #967259;
+  transform: scale(0.5);
+  border-radius: 50%;
+}
+#root-context > .node-container > .node-core {
   cursor: pointer;
   position: absolute;
   left: 15%;
   width: 70%;
   height: 70%;
-  background-color: #d55c5a;
+  background-color: #634832;
   border-radius: 50%;
 }
 
-#context > #button-section > #button-core > #core-img {
+#root-context > .node-container > .node-core > .core-image {
   position: absolute;
-  width: 65%;
-  height: 65%;
-  top: 15%;
-  left: 15%;
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
   pointer-events: none;
-  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+  /* filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5)); */
 }
+
+#root-context > #result-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #38220f;
+}
+#root-context > #result-container.search-mode {
+  height: 15%;
+}
+
+#root-context > #result-container.root-mode {
+  height: 100%;
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -187,16 +292,4 @@ header > #sub-title {
 }
 #overlay > #item-box > input[type="checkbox"]:checked + label .item {
   opacity: 0.25;
-}
-
-.effect-halo {
-  pointer-events: none;
-  position: absolute;
-  cursor: pointer;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.75;
-  background-color: #f5cec7;
-  border-radius: 50%;
 }

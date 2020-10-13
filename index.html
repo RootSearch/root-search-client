@@ -16,20 +16,30 @@
   <title>Root Search</title>
 </head>
 
-<body>
-  <header>
-    <img id="logo" src="./style/resources/images/rhine.png" alt="" />
-    <div id="title">Rhine Lab</div>
-    <div id="sub-title">Culture Land</div>
+<body class="dynamic-view search-mode">
+  <header class="dynamic-view search-mode">
+    <div id="title" class="dynamic-view search-mode">ROOT SEARCH</div>
+    <div id="sub-title-container" class="dynamic-view search-mode">
+      <div id="sub-title" class="dynamic-view animation-shadow">ROOT SEARCH</div>
+    </div>
   </header>
 
-  <div id="context">
-    <div id="button-section">
-      <span class="effect-halo effect-halo-blink"></span>
-      <span class="effect-halo effect-halo-blink"></span>
-      <span id="button-core">
-        <img id="core-img" class="animation-dom" src="./style/resources/images/efmom.png" alt="" />
+  <div id="search-context" class="dynamic-view search-mode">
+    <div id="search-container">
+      <input type="text" id="search-bar" placeholder="Do Search!" />
+    </div>
+  </div>
+
+  <div id="root-context" class="dynamic-view search-mode">
+    <div class="node-container root">
+      <span class="effect-halo effect-halo-runnig"></span>
+      <span class="effect-halo effect-halo-runnig"></span>
+      <span class="node-core">
+        <img class="core-image animation-dom" src="./style/resources/images/coffee-bean.png" alt="" />
       </span>
+    </div>
+    <div id="result-container" class="dynamic-view search-mode">
+
     </div>
   </div>
 
@@ -44,6 +54,9 @@
 
     <div id="item-box"></div>
   </div>
+  <footer>
+
+  </footer>
 </body>
 
 </html>

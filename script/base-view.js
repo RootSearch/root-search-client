@@ -5,11 +5,11 @@ class BaseView {
     this.closeButton = $("#overlay > #text-box > #close-icon ");
     this.goButton = $("#overlay > #text-box > #button");
     this.itemBox = $("#overlay > #item-box");
-    this.centerButton = $("#context > #button-section > #button-core");
+    this.centerButton = $("#root-context > .node-container.root > .node-core");
     this.centerImage = $(
-      "#context > #button-section > #button-core > #core-img"
+      "#root-context > .node-container > .node-core > .core-image"
     );
-    this.haloEffect = $("#context > #button-section > .effect-halo");
+    this.haloEffect = $("#root-context > .node-container > .effect-halo");
   }
   ObjectLinker = (view) => {
     this._view = view;

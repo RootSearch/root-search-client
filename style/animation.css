@@ -1,3 +1,7 @@
+.animation-shadow {
+  animation: shadow 5s infinite ease-out;
+}
+
 .slide-up {
   animation: slideUp 0.2s ease-out;
   opacity: 1 !important;
@@ -21,7 +25,7 @@
 }
 
 .effect-halo-runnig {
-  animation: halo 1.6s infinite linear;
+  animation: halo 2s infinite linear;
 }
 
 .effect-halo-blink {
@@ -30,7 +34,7 @@
 
 .effect-halo-runnig:nth-of-type(2) {
   opacity: 0;
-  animation-delay: 0.8s;
+  animation-delay: 1s;
 }
 
 .animation-dom {
@@ -45,6 +49,18 @@
 
 .rotate-button {
   transform: rotate(-60deg);
+}
+
+@keyframes shadow {
+  0% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.75;
+  }
 }
 
 @keyframes slideUp {
@@ -100,12 +116,12 @@
 }
 
 @keyframes halo {
-  from {
+  0% {
     opacity: 1;
-    transform: scale(0.9);
+    transform: scale(0.5);
   }
-  to {
+  100% {
     opacity: 0;
-    transform: scale(1.4);
+    transform: scale(1.1);
   }
 }
