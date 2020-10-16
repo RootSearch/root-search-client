@@ -26,28 +26,28 @@ $(document).ready(() => {
   //   "rhine.png",
   // ]);
 
-  $("#result-body").click((e) => {
-    const pos = e.originalEvent;
-    console.log(
-      "top : " +
-        ((100 * pos.layerY) / $("#result-body").height()).toFixed(2) +
-        " %",
-      ", ",
-      "left : " +
-        ((100 * pos.layerX) / $("#result-body").width()).toFixed(2) +
-        " %"
-    ); //
-    $('<div class="point"></div>')
-      .appendTo($("#result-body"))
-      .css({
-        top:
-          ((100 * (pos.layerY - 2)) / $("#result-body").height()).toFixed(2) +
-          "%",
-        left:
-          ((100 * (pos.layerX - 2)) / $("#result-body").width()).toFixed(2) +
-          "%",
-      });
-  });
+  // $("#result-body").click((e) => {
+  //   const pos = e.originalEvent;
+  //   console.log(
+  //     "top : " +
+  //       ((100 * pos.layerY) / $("#result-body").height()).toFixed(2) +
+  //       " %",
+  //     ", ",
+  //     "left : " +
+  //       ((100 * pos.layerX) / $("#result-body").width()).toFixed(2) +
+  //       " %"
+  //   ); //
+  //   $('<div class="point"></div>')
+  //     .appendTo($("#result-body"))
+  //     .css({
+  //       top:
+  //         ((100 * (pos.layerY - 2)) / $("#result-body").height()).toFixed(2) +
+  //         "%",
+  //       left:
+  //         ((100 * (pos.layerX - 2)) / $("#result-body").width()).toFixed(2) +
+  //         "%",
+  //     });
+  // });
 });
 
 /**

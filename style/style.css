@@ -171,7 +171,6 @@ header > #sub-title-container > #sub-title {
 }
 
 #root-context > .node-container.root.fall-down {
-  pointer-events: none;
   margin-top: 12.5%;
   transform: rotate(90deg);
   transition-duration: 1.5s;
