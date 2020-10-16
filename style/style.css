@@ -4,6 +4,7 @@
 }
 html,
 body {
+  pointer-events: none;
   margin: 0;
   padding: 0;
   font-family: "Noto Sans KR", "Montserrat", sans-serif;
@@ -28,6 +29,10 @@ div {
 }
 body {
   background-color: #ece0d1;
+}
+
+.interaction-view {
+  pointer-events: all;
 }
 
 .dynamic-view {
@@ -135,21 +140,27 @@ header > #sub-title-container > #sub-title {
   height: 100%;
 }
 #root-context > #result-container > #result-body {
+  position: relative;
   height: 100%;
-  width: 100%;
+  width: 1024px;
+  background-color: #d55c5a25;
 }
 
 #root-context > #result-container > #result-body.search-mode {
   display: none;
+  pointer-events: none;
 }
 
 #root-context > #result-container > #result-body.root-mode {
-  display: block;
+  display: inline-block;
+  margin-left: calc(50% - 512px);
+  pointer-events: all;
 }
 #root-context > #result-container > #result-body > #result-background {
   display: block;
   margin: 0 auto;
-  height: 100%;
+  width: 100%;
+  opacity: 0.1;
 }
 
 #root-context > .node-container.root {
@@ -160,6 +171,7 @@ header > #sub-title-container > #sub-title {
 }
 
 #root-context > .node-container.root.fall-down {
+  pointer-events: none;
   margin-top: 12.5%;
   transform: rotate(90deg);
   transition-duration: 1.5s;
@@ -285,7 +297,7 @@ header > #sub-title-container > #sub-title {
 }
 
 #overlay > #item-box > label > .item {
-  background-image: url(./resources/images/giftcard.png);
+  /* background-image: url(./resources/images/giftcard.png); */
   background-size: cover;
   height: 400px;
   width: 800px;
@@ -319,4 +331,12 @@ header > #sub-title-container > #sub-title {
 }
 #overlay > #item-box > input[type="checkbox"]:checked + label .item {
   opacity: 0.25;
+}
+
+.point {
+  position: absolute;
+  background-color: red;
+  width: 4px;
+  height: 4px;
+  pointer-events: none;
 }
