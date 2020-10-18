@@ -53,13 +53,21 @@ class CoffeeNode {
       image: this.root.children(".node-core").children(".core-image"),
     };
 
+    this.context = {
+      title: this.modal.children(".context").children(".title"),
+      snippet: this.modal.children(".context").children(".snippet"),
+      thumbnail: this.modal.children(".context").children(".thumbnail"),
+    };
+
     this.modal
       .children(".context")
       .addClass(position.left < 50 ? "left" : "right");
 
     // this.modal.children(".context").children(".thumbnail")
-    this.modal.children(".context").children(".title").text(data.title);
-    this.modal.children(".context").children(".snippet").text(data.snippet);
+    this.context.title.text(data.title);
+    this.context.snippet.text(data.snippet);
+    if (data.thumbnail !== "null")
+      this.context.thumbnail.attr("src", data.thumbnail);
 
     this.decoration.halo.css({
       "background-color": this.colorPicker(position.top, position.left, 255),
@@ -73,7 +81,7 @@ class CoffeeNode {
       "background-color": this.colorPicker(position.top, position.left, 235),
     });
 
-    this.decoration.core.click(() => window.open(data.url, "_blank").focus());
+    this.decoration.core.click(() => window.open(data.link, "_blank").focus());
     this.decoration.core.hover(
       () => this.modal.addClass("show").removeClass("hide"),
       () => this.modal.addClass("hide").removeClass("show")

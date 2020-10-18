@@ -21,6 +21,12 @@ class Model {
           },
         },
       },
+      "dynamic-view": {
+        modified: false,
+      },
+      "result-view": {
+        modified: false,
+      },
     };
   }
 
