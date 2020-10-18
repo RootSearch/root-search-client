@@ -51,7 +51,7 @@ class Controller {
     // }, 100);
 
     if ($("body").hasClass("search-mode")) {
-      $("#search-bar").toggleClass("interaction-view");
+      $("#search-bar").removeClass("interaction-view");
       $(".node-container.root").toggleClass("fall-down default");
       $(".node-core").toggleClass("interaction-view");
       setTimeout(() => {
@@ -86,6 +86,7 @@ class Controller {
       $(
         "#root-context > #result-container > #result-body > #modal-layer > .result-preview"
       ).remove();
+      $("#search-bar").addClass("interaction-view");
       $(".dynamic-view").toggleClass("search-mode root-mode");
     }
 
