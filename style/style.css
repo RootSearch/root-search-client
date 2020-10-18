@@ -143,7 +143,6 @@ header > #sub-title-container > #sub-title {
   position: relative;
   height: 100%;
   width: 1024px;
-  background-color: #d55c5a25;
 }
 
 #root-context > #result-container > #result-body.search-mode {
@@ -167,6 +166,8 @@ header > #sub-title-container > #sub-title {
   position: relative !important;
   margin: 0 auto;
   margin-top: 1%;
+  width: 100px;
+  height: 100px;
   transition-duration: 0.25s;
 }
 
@@ -177,15 +178,21 @@ header > #sub-title-container > #sub-title {
   transition-timing-function: ease-in;
 }
 
-#root-context > .node-container {
+#root-context > .node-container,
+#root-context > #result-container > #result-body > .node-container {
   position: absolute;
   display: flex;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 40px;
 }
 
-#root-context > .node-container > .effect-halo {
+#root-context > .node-container > .effect-halo,
+#root-context
+  > #result-container
+  > #result-body
+  > .node-container
+  > .effect-halo {
   pointer-events: none;
   position: absolute;
   cursor: pointer;
@@ -197,7 +204,12 @@ header > #sub-title-container > #sub-title {
   transform: scale(0.5);
   border-radius: 50%;
 }
-#root-context > .node-container > .node-core {
+#root-context > .node-container > .node-core,
+#root-context
+  > #result-container
+  > #result-body
+  > .node-container
+  > .node-core {
   cursor: pointer;
   position: absolute;
   left: 15%;
@@ -207,7 +219,13 @@ header > #sub-title-container > #sub-title {
   border-radius: 50%;
 }
 
-#root-context > .node-container > .node-core > .core-image {
+#root-context > .node-container > .node-core > .core-image,
+#root-context
+  > #result-container
+  > #result-body
+  > .node-container
+  > .node-core
+  > .core-image {
   position: absolute;
   width: 60%;
   height: 60%;
