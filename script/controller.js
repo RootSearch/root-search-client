@@ -58,12 +58,19 @@ class Controller {
         $(".dynamic-view").toggleClass("search-mode root-mode");
         $(".node-container.root").toggleClass("fall-down default");
         $(".node-core").toggleClass("interaction-view");
-
+        $(".node-container.root > .effect-halo").toggleClass(
+          "effect-halo-blink effect-halo-runnig"
+        );
         setTimeout(() => {
           let result = new ResultMap();
           const makeNode = (time) => {
             const pos = result.getNextPosition();
-            if (!pos) return;
+            if (!pos) {
+              $(".node-container.root > .effect-halo").toggleClass(
+                "effect-halo-blink effect-halo-runnig"
+              );
+              return;
+            }
             new CoffeeNode(pos, dummy[0]);
             if (time > 100) time -= 50;
             setTimeout(() => makeNode(time), time);
@@ -74,7 +81,10 @@ class Controller {
       }, 2000);
     } else {
       $(
-        "#root-context > #result-container > #result-body > .node-container"
+        "#root-context > #result-container > #result-body > #node-layer > .node-container"
+      ).remove();
+      $(
+        "#root-context > #result-container > #result-body > #modal-layer > .result-preview"
       ).remove();
       $(".dynamic-view").toggleClass("search-mode root-mode");
     }

@@ -87,6 +87,18 @@ header > #sub-title-container > #sub-title {
   color: #967259;
   transform: perspective(800px) rotateX(60deg);
 }
+input::-moz-selection,
+div::-moz-selection {
+  /* Code for Firefox */
+  color: #dbc1ac;
+  background-color: #38220f;
+}
+
+input::selection,
+div::selection {
+  color: #dbc1ac;
+  background-color: #38220f;
+}
 #search-context {
   color: #38220f;
 }
@@ -222,9 +234,8 @@ header > #sub-title-container > #sub-title {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
+  opacity: 0.5;
   background-color: #967259;
-  transform: scale(0.5);
   border-radius: 50%;
 }
 #root-context > .node-container > .node-core,

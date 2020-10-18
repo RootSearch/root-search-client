@@ -2,11 +2,10 @@ class ApiGateway {}
 
 const dummy = [
   {
-    title:
-      "North Korea says it's sending soldiers to joint border sites | CTV News",
+    title: "COVID-19 Open Research Dataset Challenge  |  Kaggle",
     snippet:
-      "Jun 15, 2020 ... North Korea said Wednesday that it will send soldiers to now-shuttered inter-\nKorean co-operation sites in its territory and reinstall guard posts ...",
+      "5 days ago ... Dataset Description. In response to the COVID-19 pandemic, the White House \nand a coalition of leading research groups have prepared the ...",
     url:
-      "https://www.google.com/appserve/mkt/p/AD-FnEyFxzBct_4HOqNmwdeVgpqhsSbMA6Ppha0wT-gXCLc9cvTSBxXKty5fL-PdPhivOvGLIH8nN6TyNJVXaJpQuM0yzob-lY9WZNel2wEQ6lzfINJ1o7Kviui0oFgTJwvejKn9L_P6HF-UNcsRlaHaMKns0CpMXMjDPzovfRPmGnQmNhtodYvdf3tGtqZJFdMXho5CUh12H2jiLw",
+      "https://www.google.com/appserve/mkt/p/AMJ1musddqVXQmUfEAzAllovWEJnShJN1vFCS9_25OzCtY6Mx_KtBtJIkB2HtgylUDwJ8lWeApmLkW00Ojh3lNFG-o3qqFybyNt5j1QQ7lCHg4UIYSTmNgb2wg4a7T9FIvc5dLUdjt7hf7-vxnQYQ37A7QelIFmZMiqHvHdTUpU8bKgUha8DMoamtknYhhZsKczUlz4Re9qVlKyL_itNP73TEyLWicIprxZWSRFdMDYbnqJIUk82zOmRJTsF0A",
   },
 ];

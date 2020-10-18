@@ -25,10 +25,12 @@
 }
 
 .effect-halo-runnig {
+  transform: scale(0.5);
   animation: halo 2s infinite linear;
 }
 
 .effect-halo-blink {
+  transform: scale(0.85);
   animation: blinking 1.6s infinite linear;
 }
 
