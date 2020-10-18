@@ -37,6 +37,19 @@ class Controller {
     // $(".dynamic-view").toggleClass("search-mode root-mode");
     // $("#search-bar").toggleClass("interaction-view");
 
+    // setTimeout(() => {
+    //   let result = new ResultMap();
+    //   const makeNode = (time) => {
+    //     const pos = result.getNextPosition();
+    //     if (!pos) return;
+    //     new CoffeeNode(pos, dummy[0]);
+    //     if (time > 100) time -= 50;
+    //     // setTimeout(() => makeNode(time), time);
+    //   };
+    //   let timeSlice = 1000;
+    //   makeNode(timeSlice);
+    // }, 100);
+
     if ($("body").hasClass("search-mode")) {
       $("#search-bar").toggleClass("interaction-view");
       $(".node-container.root").toggleClass("fall-down default");
@@ -53,7 +66,7 @@ class Controller {
             if (!pos) return;
             new CoffeeNode(pos, dummy[0]);
             if (time > 100) time -= 50;
-            // setTimeout(() => makeNode(time), time);
+            setTimeout(() => makeNode(time), time);
           };
           let timeSlice = 1000;
           makeNode(timeSlice);

@@ -144,6 +144,7 @@ header > #sub-title-container > #sub-title {
   position: relative;
   height: 900px;
   width: 1024px;
+  z-index: -1;
 }
 
 #root-context > #result-container > #result-body.search-mode {
@@ -156,11 +157,26 @@ header > #sub-title-container > #sub-title {
   margin-left: calc(50% - 512px);
   pointer-events: all;
 }
+#root-context > #result-container > #result-body > #node-layer,
+#root-context > #result-container > #result-body > #modal-layer,
 #root-context > #result-container > #result-body > #result-background {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
   display: block;
-  margin: 0 auto;
   width: 100%;
+  height: 100%;
+}
+#root-context > #result-container > #result-body > #node-layer {
+  z-index: 0;
+}
+#root-context > #result-container > #result-body > #modal-layer {
+  z-index: 9999;
+}
+
+#root-context > #result-container > #result-body > #result-background {
   opacity: 0.1;
+  z-index: -1;
 }
 
 #root-context > .node-container.root {
@@ -180,18 +196,24 @@ header > #sub-title-container > #sub-title {
 }
 
 #root-context > .node-container,
-#root-context > #result-container > #result-body > .node-container {
+#root-context
+  > #result-container
+  > #result-body
+  > #node-layer
+  > .node-container {
   position: absolute;
-  display: flex;
-  align-items: center;
+  z-index: 0;
   width: 40px;
   height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 #root-context > .node-container > .effect-halo,
 #root-context
   > #result-container
   > #result-body
+  > #node-layer
   > .node-container
   > .effect-halo {
   pointer-events: none;
@@ -209,6 +231,7 @@ header > #sub-title-container > #sub-title {
 #root-context
   > #result-container
   > #result-body
+  > #node-layer
   > .node-container
   > .node-core {
   cursor: pointer;
@@ -224,6 +247,7 @@ header > #sub-title-container > #sub-title {
 #root-context
   > #result-container
   > #result-body
+  > #node-layer
   > .node-container
   > .node-core
   > .core-image {
@@ -234,6 +258,153 @@ header > #sub-title-container > #sub-title {
   left: 20%;
   pointer-events: none;
   /* filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5)); */
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview {
+  position: absolute;
+  pointer-events: none;
+  height: 40px;
+  width: 40px;
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview.show {
+  opacity: 1;
+  /* pointer-events: all; */
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview.hide {
+  opacity: 0;
+  /* pointer-events: none; */
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .node {
+  display: flex;
+  pointer-events: none;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .node
+  > .node-core {
+  position: absolute;
+  left: 12.5%;
+  width: 75%;
+  height: 75%;
+  background-color: #634832;
+  border-radius: 50%;
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .node
+  > .node-core
+  > .core-image {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
+  pointer-events: none;
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .context {
+  position: absolute;
+  z-index: -1;
+  padding: 15px 15px 15px 15px;
+  width: 300px;
+  height: 150px;
+  bottom: calc(100% - 20px);
+  background-color: #dbc1acc0;
+  box-shadow: 5px 5px 2px 1px #dbc1ac50;
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .context.right {
+  left: calc(100% - 20px);
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .context.left {
+  right: calc(100% - 20px);
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .context
+  > .thumbnail {
+  height: 70px;
+  width: 70px;
+  border: 1px black solid;
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .context
+  > .title {
+  display: inline-block;
+  width: 210px;
+  margin-left: 5px;
+  color: #38220f;
+  font-size: 18px;
+  font-weight: 700;
+  vertical-align: top;
+}
+
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .context
+  > .snippet {
+  color: #634832;
+  display: block;
+  font-size: 14px;
 }
 
 .overlay {
