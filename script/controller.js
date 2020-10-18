@@ -34,20 +34,37 @@ class Controller {
    */
 
   BaseView_ShowOverlay = () => {
-    $(".dynamic-view").toggleClass("search-mode root-mode");
-    $("#search-bar").toggleClass("interaction-view");
-    // if ($("body").hasClass("search-mode")) {
-    //   $("#search-bar").toggleClass("interaction-view");
-    //   $(".node-container.root").toggleClass("fall-down default");
-    //   $(".node-core").toggleClass("interaction-view");
-    //   setTimeout(() => {
-    //     $(".dynamic-view").toggleClass("search-mode root-mode");
-    //     $(".node-container.root").toggleClass("fall-down default");
-    //     $(".node-core").toggleClass("interaction-view");
-    //   }, 2000);
-    // } else {
-    //   $(".dynamic-view").toggleClass("search-mode root-mode");
-    // }
+    // $(".dynamic-view").toggleClass("search-mode root-mode");
+    // $("#search-bar").toggleClass("interaction-view");
+
+    if ($("body").hasClass("search-mode")) {
+      $("#search-bar").toggleClass("interaction-view");
+      $(".node-container.root").toggleClass("fall-down default");
+      $(".node-core").toggleClass("interaction-view");
+      setTimeout(() => {
+        $(".dynamic-view").toggleClass("search-mode root-mode");
+        $(".node-container.root").toggleClass("fall-down default");
+        $(".node-core").toggleClass("interaction-view");
+
+        setTimeout(() => {
+          let result = new ResultMap();
+          const makeNode = (time) => {
+            const pos = result.getNextPosition();
+            if (!pos) return;
+            new CoffeeNode(pos, dummy[0]);
+            if (time > 100) time -= 50;
+            // setTimeout(() => makeNode(time), time);
+          };
+          let timeSlice = 1000;
+          makeNode(timeSlice);
+        }, 750);
+      }, 2000);
+    } else {
+      $(
+        "#root-context > #result-container > #result-body > .node-container"
+      ).remove();
+      $(".dynamic-view").toggleClass("search-mode root-mode");
+    }
 
     // this._model.ChangeViewModel([
     //   { view: "base-view", object: "text-input", data: { show: true } },

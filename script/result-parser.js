@@ -1,15 +1,6 @@
 class CodeParser {
-  constructor(type) {
-    switch (type) {
-      case "CultureLand":
-        this.codeReg = /\d{4}[-]{0,1}\d{4}[-]{0,1}\d{4}[-]{0,1}\d{6}/g;
-        break;
-      default:
-        this.codeReg = /:?/;
-        break;
-    }
-  }
-  Run(text) {
+  constructor() {}
+  run(text) {
     let code;
     let codeGroup = [];
     while ((code = this.codeReg.exec(text)) !== null) {

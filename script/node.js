@@ -18,15 +18,38 @@ class CoffeeNode {
   constructor(position, data) {
     if (CoffeeNode.__container__ === undefined)
       CoffeeNode.__container__ = $(CoffeeNode.__container_id__);
-    console.log(CoffeeNode.__container__);
-    this.dom = $(CoffeeNode.__node__)
+    this.root = $(CoffeeNode.__node__)
       .appendTo(CoffeeNode.__container__)
       .css({
         top: "calc(" + position.top + "% - " + CoffeeNode.__size__ + "px)",
         left: "calc(" + position.left + "% - " + CoffeeNode.__size__ + "px)",
       });
-    console.log(position);
-    console.log(this.dom);
-    this.dom.click(() => console.log("룰룰랄라 시발라"));
+    this.decoration = {
+      halo: this.root.children(".effect-halo"),
+      core: this.root.children(".node-core"),
+      image: this.root.children(".node-core").children(".core-image"),
+    };
+
+    this.decoration.halo.css({
+      "background-color": this.colorPicker(position.top, position.left, 255),
+    });
+
+    this.decoration.core.css({
+      "background-color": this.colorPicker(position.top, position.left, 235),
+    });
+
+    this.decoration.core.click(() => window.open(data.url, "_blank").focus());
+    this.decoration.core.hover(
+      () => console.log(data.title),
+      () => console.log(data.url)
+    );
   }
+
+  colorPicker = (top, left, max) => {
+    let [y, x] = [top / 70, left / 100];
+    let red = parseInt(max * x);
+    let green = parseInt(max * y);
+    let blue = parseInt(max * Math.sqrt(x * x + y * y));
+    return `rgb(${red},${green},${blue})`;
+  };
 }
