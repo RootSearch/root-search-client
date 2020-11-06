@@ -1,12 +1,12 @@
 class Controller {
   constructor() {}
-  ObjectLinker = (model, view, parser) => {
+  linkObject = (model, view, parser) => {
     this._model = model;
     this._view = view;
     this._parser = parser;
   };
 
-  AddEventHandler = () => {
+  addEventHandler = () => {
     this._view.AddEventHandler({
       "base-view": {
         "center-button": this.BaseView_ShowOverlay,
@@ -16,7 +16,7 @@ class Controller {
     });
   };
 
-  Preload = (path, images) => {
+  preload = (path, images) => {
     for (const key in images) {
       if (images.hasOwnProperty(key)) {
         const element = images[key];
@@ -62,7 +62,7 @@ class Controller {
           "effect-halo-blink effect-halo-runnig"
         );
         setTimeout(() => {
-          let result = new ResultMap();
+          let result = new NodeMap();
           const makeNode = (time) => {
             const pos = result.getNextPosition();
             if (!pos) {
@@ -90,23 +90,23 @@ class Controller {
       $(".dynamic-view").toggleClass("search-mode root-mode");
     }
 
-    // this._model.ChangeViewModel([
+    // this._model.changeModel([
     //   { view: "base-view", object: "text-input", data: { show: true } },
     // ]);
   };
   BaseView_MakeGiftCard = () => {
     // this._view.QuickChange("base-view", "goButton");
-    // let text = this._view.GetViewData("base-view", "code");
+    // let text = this._view.readModel("base-view", "code");
     // let codes = this._parser.Run(text);
     // if (codes.length === 0) {
     //   return;
     // }
-    // this._model.ChangeViewModel([
+    // this._model.changeModel([
     //   { view: "base-view", object: "code-book", data: codes },
     // ]);
   };
   BaseView_CloseOverlay = () => {
-    // this._model.ChangeViewModel([
+    // this._model.changeModel([
     //   { view: "base-view", object: "text-input", data: { show: false } },
     // ]);
   };

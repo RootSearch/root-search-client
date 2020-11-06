@@ -1,9 +1,3 @@
-// let model;
-// let view;
-// let controller;
-// let base;
-// let parser;
-
 $(document).ready(() => {
   console.log("ready");
 
@@ -13,11 +7,11 @@ $(document).ready(() => {
   let base = new BaseView();
   let parser = new CodeParser("CultureLand");
 
-  model.ObjectLinker(view);
-  controller.ObjectLinker(model, view, parser);
-  view.ObjectLinker(controller, { "base-view": base });
+  model.linkObject(view);
+  controller.linkObject(model, view, parser);
+  view.linkObject(controller, { "base-view": base });
 
-  controller.AddEventHandler();
+  controller.addEventHandler();
   // controller.Preload("./style/images/", [
   //   "cross.png",
   //   "efmom.png",

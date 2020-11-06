@@ -1,4 +1,4 @@
-class ResultMap {
+class NodeMap {
   static __root_map__ = [
     {
       top: 30.89,
@@ -495,12 +495,12 @@ class ResultMap {
   static __deep_clone__ = (object) => JSON.parse(JSON.stringify(object));
 
   constructor() {
-    this.positions = ResultMap.__deep_clone__(ResultMap.__root_map__);
+    this.positions = NodeMap.__deep_clone__(NodeMap.__root_map__);
   }
 
   getNextPosition = () => {
     if (this.positions.length === 0) return;
-    const target = ResultMap.__get_random_int__(0, this.positions.length);
+    const target = NodeMap.__get_random_int__(0, this.positions.length);
     const nextPosition = this.positions[target];
     this.positions = this.positions
       .slice(0, target)
@@ -509,6 +509,6 @@ class ResultMap {
   };
 
   reset = () => {
-    this.positions = ResultMap.__deep_clone__(ResultMap.__root_map__);
+    this.positions = NodeMap.__deep_clone__(NodeMap.__root_map__);
   };
 }
