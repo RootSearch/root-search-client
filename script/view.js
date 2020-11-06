@@ -1,7 +1,7 @@
 class View {
   constructor() {}
 
-  ObjectLinker = (controller, views) => {
+  linkObject = (controller, views) => {
     this._controller = controller;
     this._views = views;
   };
