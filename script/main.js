@@ -54,7 +54,9 @@ $(document).ready(() => {
               );
               return;
             }
-            new CoffeeNode(pos, dummy[0]);
+            new CoffeeNode(pos, dummy[0], {
+              click: () => window.open(data.link, "_blank").focus(),
+            });
             if (time > 100) time -= 50;
             setTimeout(() => makeNode(time), time);
           };
