@@ -134,10 +134,10 @@ class CoffeeNode {
   };
 
   indexColorPicher = (index, max) => {
-    let [y, x] = [top / 70, left / 100];
+    let [x, y, z] = [index / 70, index / 100, index];
     let red = parseInt(max * x);
     let green = parseInt(max * y);
-    let blue = parseInt(max * Math.sqrt(x * x + y * y));
+    let blue = parseInt(max * z);
     return `rgb(${red},${green},${blue})`;
   };
 }

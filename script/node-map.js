@@ -499,13 +499,13 @@ class NodeMap {
   }
 
   getNextPosition = () => {
-    if (this.positions.length === 0) return;
+    if (this.positions.length === 0) return [false, -1];
     const target = NodeMap.__get_random_int__(0, this.positions.length);
     const nextPosition = this.positions[target];
     this.positions = this.positions
       .slice(0, target)
       .concat(this.positions.slice(target + 1));
-    return nextPosition;
+    return [nextPosition, this.positions.length];
   };
 
   reset = () => {
