@@ -6,7 +6,7 @@ class CoffeeNode {
                     <span class="effect-halo effect-halo-runnig"></span>
                     <span class="effect-halo effect-halo-runnig"></span>
                     <span class="node-core interaction-view">
-                        <img class="core-image animation-dom" src="./style/resources/images/coffee-bean.png" alt="" />
+                        <img class="core-image coffee-bean animation-dom" alt="" />
                     </span>
                 </div>`;
 
@@ -14,7 +14,7 @@ class CoffeeNode {
             <div class="result-preview animation-dom hide">
                 <div class="node">
                     <span class="node-core">
-                        <img class="core-image" src="./style/resources/images/coffee-bean.png" alt="" />
+                        <img class="core-image coffee-bean" alt="" />
                     </span>
                 </div>
                 <div class="context">
@@ -29,7 +29,7 @@ class CoffeeNode {
    * @param {top, left} position
    * @param {title, link, ...} data
    */
-  constructor(position, data, eventHandler) {
+  constructor(position, data, index, eventHandler) {
     if (CoffeeNode.__container__ === undefined)
       CoffeeNode.__container__ = $(CoffeeNode.__container_id__);
 
@@ -53,6 +53,10 @@ class CoffeeNode {
       core: this.root.children(".node-core"),
       modalCore: this.modal.children(".node").children(".node-core"),
       image: this.root.children(".node-core").children(".core-image"),
+      modalCoreImage: this.modal
+        .children(".node")
+        .children(".node-core")
+        .children(".core-image"),
     };
     //모달 내부 객체 프리픽스
     this.context = {
@@ -75,36 +79,61 @@ class CoffeeNode {
 
     //색상값 연결
     this.decoration.halo.css({
-      "background-color": this.colorPicker(position.top, position.left, 255),
+      "background-color": this.positionColorPicker(
+        position.top,
+        position.left,
+        255
+      ),
     });
 
     this.decoration.core.css({
-      "background-color": this.colorPicker(position.top, position.left, 235),
+      "background-color": this.positionColorPicker(
+        position.top,
+        position.left,
+        235
+      ),
     });
 
     this.decoration.modalCore.css({
-      "background-color": this.colorPicker(position.top, position.left, 235),
+      "background-color": this.positionColorPicker(
+        position.top,
+        position.left,
+        235
+      ),
     });
 
     //이벤트 연결
     this.decoration.core.click(() => {
       if (eventHandler.click) eventHandler.click();
-      this.decoration.image.src;
+      this.decoration.image.removeClass("coffee-bean").addClass("coffee-cup");
+      this.decoration.modalCoreImage
+        .removeClass("coffee-bean")
+        .addClass("coffee-cup");
     });
 
     this.decoration.core.hover(
       () => {
         if (eventHandler.enter) eventHandler.enter();
         this.modal.addClass("show").removeClass("hide");
+        this.isClicked = true;
       },
       () => {
         if (eventHandler.leave) eventHandler.leave();
         this.modal.addClass("hide").removeClass("show");
       }
     );
+    console.log(index);
   }
 
-  colorPicker = (top, left, max) => {
+  positionColorPicker = (top, left, max) => {
+    let [y, x] = [top / 70, left / 100];
+    let red = parseInt(max * x);
+    let green = parseInt(max * y);
+    let blue = parseInt(max * Math.sqrt(x * x + y * y));
+    return `rgb(${red},${green},${blue})`;
+  };
+
+  indexColorPicher = (index, max) => {
     let [y, x] = [top / 70, left / 100];
     let red = parseInt(max * x);
     let green = parseInt(max * y);

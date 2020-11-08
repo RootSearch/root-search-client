@@ -44,6 +44,7 @@ $(document).ready(() => {
         $(".node-container.root > .effect-halo").toggleClass(
           "effect-halo-blink effect-halo-runnig"
         );
+        let index = 0;
         setTimeout(() => {
           let result = new NodeMap();
           const makeNode = (time) => {
@@ -54,9 +55,10 @@ $(document).ready(() => {
               );
               return;
             }
-            new CoffeeNode(pos, dummy[0], {
-              click: () => window.open(data.link, "_blank").focus(),
+            new CoffeeNode(pos, dummy[0], index, {
+              click: () => window.open(dummy[0].link, "_blank").focus(),
             });
+            index += 1;
             if (time > 100) time -= 50;
             setTimeout(() => makeNode(time), time);
           };

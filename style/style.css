@@ -268,8 +268,45 @@ div::selection {
   top: 20%;
   left: 20%;
   pointer-events: none;
-  content: url(./resources/images/coffee-bean.png);
   /* filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5)); */
+}
+
+#root-context > .node-container > .node-core > .core-image.coffee-bean,
+#root-context
+  > #result-container
+  > #result-body
+  > #node-layer
+  > .node-container
+  > .node-core
+  > .core-image.coffee-bean,
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .node
+  > .node-core
+  > .core-image.coffee-bean {
+  content: url(./resources/images/coffee-bean.png);
+}
+
+#root-context > .node-container > .node-core > .core-image.coffee-cup,
+#root-context
+  > #result-container
+  > #result-body
+  > #node-layer
+  > .node-container
+  > .node-core
+  > .core-image.coffee-cup,
+#root-context
+  > #result-container
+  > #result-body
+  > #modal-layer
+  > .result-preview
+  > .node
+  > .node-core
+  > .core-image.coffee-cup {
+  content: url(./resources/images/coffee-cup.png);
 }
 
 #root-context
