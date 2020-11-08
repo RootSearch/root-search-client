@@ -107,6 +107,11 @@ class Controller {
           object: "result-layer",
           data: { mode: "search" },
         },
+        {
+          view: "result-view",
+          object: "results",
+          data: { container: [] },
+        },
       ]);
     }
   };
