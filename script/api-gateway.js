@@ -5,6 +5,12 @@ class ApiGateway {
   };
   constructor() {}
 
+  addEventHandler = (eventHandlers) => {
+    this.onPendingHandler = eventHandlers["pending"];
+    this.onSuccessHandler = eventHandlers["success"];
+    this.onErrorHandler = eventHandlers["error"];
+  };
+
   openSSE = (target) => {
     this.es = new EventSource(`${ApiGateway.__server_path__}/target`, {
       withCredentials: false,

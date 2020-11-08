@@ -23,6 +23,7 @@ class View {
         const element = model[key];
         if (element.modified) {
           this._views[key].update(element.object);
+          element.modified = false;
         }
       }
     }

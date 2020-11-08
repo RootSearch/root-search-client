@@ -14,6 +14,11 @@ class Controller {
         "root-button": this.onSearchHandler,
       },
     });
+    this._api.addEventHandler({
+      pending: "",
+      success: "",
+      error: "",
+    });
   };
 
   preload = (path, images) => {
@@ -36,22 +41,83 @@ class Controller {
   onChangeHandler = (e) => {
     console.log($(e.target).val());
     this._model.changeModel([
-      { view: "dynamic-view", object: "search-bar", data: $(e.target).val() },
+      {
+        view: "dynamic-view",
+        object: "search-bar",
+        data: { search: $(e.target).val() },
+      },
     ]);
-    console.log(this._model.showModel());
   };
+
   onSearchHandler = () => {
-    // this._view.QuickChange("base-view", "goButton");
-    // let text = this._view.readModel("base-view", "code");
-    // let codes = this._parser.Run(text);
-    // if (codes.length === 0) {
-    //   return;
-    // }
-    // this._model.changeModel([
-    //   { view: "base-view", object: "code-book", data: codes },
-    // ]);
+    const { mode } = this._model.readModel(
+      "dynamic-view",
+      "dynamic-view-group"
+    );
+
+    if (mode === "search") {
+      this._model.changeModel([
+        {
+          view: "dynamic-view",
+          object: "center-button",
+          data: { mode: "falling" },
+        },
+        {
+          view: "dynamic-view",
+          object: "dynamic-view-group",
+          data: { mode: "falling" },
+        },
+      ]);
+
+      setTimeout(() => {
+        this._model.changeModel([
+          {
+            view: "dynamic-view",
+            object: "center-button",
+            data: { mode: "root" },
+          },
+          {
+            view: "dynamic-view",
+            object: "dynamic-view-group",
+            data: { mode: "root" },
+          },
+          {
+            view: "result-view",
+            object: "result-layer",
+            data: { mode: "root" },
+          },
+        ]);
+      }, 2000);
+    }
+
+    if (mode === "root") {
+      this._model.changeModel([
+        {
+          view: "dynamic-view",
+          object: "center-button",
+          data: { mode: "search" },
+        },
+        {
+          view: "dynamic-view",
+          object: "dynamic-view-group",
+          data: { mode: "search" },
+        },
+        {
+          view: "result-view",
+          object: "result-layer",
+          data: { mode: "search" },
+        },
+      ]);
+    }
   };
-  onReceiveResultHandler = () => {};
+  onReceiveResultHandler = () => {
+    const { mode } = this._model.readModel(
+      "dynamic-view",
+      "dynamic-view-group"
+    );
+    if (mode === "root") {
+    }
+  };
   BaseView_CloseOverlay = () => {
     // this._model.changeModel([
     //   { view: "base-view", object: "text-input", data: { show: false } },
