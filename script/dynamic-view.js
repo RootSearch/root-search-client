@@ -27,26 +27,26 @@ class DynamicView {
       if (data.hasOwnProperty(key)) {
         const element = data[key];
         if (element.modified) {
-          this.domUpdater(key, element.data);
+          this._domUpdater(key, element.data);
           element.modified = false;
         }
       }
     }
   };
 
-  domUpdater = (name, data) => {
+  _domUpdater = (name, data) => {
     switch (name) {
       case "text-input":
-        this.showTextBox(data);
+        this._showTextBox(data);
         break;
       case "code-book":
-        this.makeCodeBook(data);
+        this._makeCodeBook(data);
         break;
       default:
     }
   };
 
-  QuickChange = (element) => {
+  quickChange = (element) => {
     switch (element) {
       case "goButton":
         this.goButton.addClass("press-button");
@@ -58,23 +58,23 @@ class DynamicView {
     }
   };
 
-  GetCodeData = () => {
-    return this.textInput.val();
-  };
+  // GetCodeData = () => {
+  //   return this.textInput.val();
+  // };
 
-  makeCodeBook = (data) => {
+  _makeCodeBook = (data) => {
     console.log(data);
     this.itemBox.empty();
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const element = data[key];
-        let cardForm = this.createGiftCard(key, element);
+        let cardForm = this._createGiftCard(key, element);
         this.itemBox.append(cardForm);
       }
     }
   };
 
-  showTextBox = (data) => {
+  _showTextBox = (data) => {
     if (data.show) {
       this.centerImage.addClass("press-button");
       setTimeout(() => {
@@ -98,7 +98,7 @@ class DynamicView {
     }
   };
 
-  createGiftCard = (index, pin) => {
+  _createGiftCard = (index, pin) => {
     let element = `<input type="checkbox" id="check_${index}" />
                    <label for="check_${index}">
                      <div class="item animation-dom">
