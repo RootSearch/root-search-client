@@ -1,4 +1,32 @@
-class ApiGateway {}
+class ApiGateway {
+  static __server_path__ = "http://localhost:5000/search";
+  linkObject = (controller) => {
+    this._controller = controller;
+  };
+  constructor() {}
+
+  openSSE = (target) => {
+    this.es = new EventSource(`${ApiGateway.__server_path__}/target`, {
+      withCredentials: false,
+    });
+    this.es.onopen = (e) => {
+      console.log("open sse");
+    };
+    this.es.onmessage = (e) => {
+      console.log("default", e);
+    };
+    this.es.addEventListener(
+      "result",
+      (e) => {
+        console.log("result", e);
+      },
+      false
+    );
+    this.es.onerror = (e) => {
+      console.log("error sse");
+    };
+  };
+}
 
 const dummy = [
   {

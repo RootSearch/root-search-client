@@ -5,6 +5,7 @@ $(document).ready(() => {
   let view = new View();
   let controller = new Controller();
   let base = new BaseView();
+  let apigateway = new ApiGateway();
   let parser = new CodeParser("CultureLand");
 
   model.linkObject(view);
@@ -19,6 +20,8 @@ $(document).ready(() => {
   //   "icon.png",
   //   "rhine.png",
   // ]);
+
+  // apigateway.openSSE("korea");
   $(".node-container.root").click(() => {
     // setTimeout(() => {
     //   let result = new ResultMap();

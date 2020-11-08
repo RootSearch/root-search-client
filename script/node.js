@@ -79,27 +79,30 @@ class CoffeeNode {
 
     //색상값 연결
     this.decoration.halo.css({
-      "background-color": this.positionColorPicker(
-        position.top,
-        position.left,
-        255
-      ),
+      "background-color": this.indexColorPicher(index, 15),
+      // "background-color": this.positionColorPicker(
+      //   position.top,
+      //   position.left,
+      //   255
+      // ),
     });
 
     this.decoration.core.css({
-      "background-color": this.positionColorPicker(
-        position.top,
-        position.left,
-        235
-      ),
+      "background-color": this.indexColorPicher(index, 15),
+      // "background-color": this.positionColorPicker(
+      //   position.top,
+      //   position.left,
+      //   235
+      // ),
     });
 
     this.decoration.modalCore.css({
-      "background-color": this.positionColorPicker(
-        position.top,
-        position.left,
-        235
-      ),
+      "background-color": this.indexColorPicher(index, 15),
+      // "background-color": this.positionColorPicker(
+      //   position.top,
+      //   position.left,
+      //   235
+      // ),
     });
 
     //이벤트 연결
@@ -133,11 +136,10 @@ class CoffeeNode {
     return `rgb(${red},${green},${blue})`;
   };
 
-  indexColorPicher = (index, max) => {
-    let [x, y, z] = [index / 70, index / 100, index];
-    let red = parseInt(max * x);
-    let green = parseInt(max * y);
-    let blue = parseInt(max * z);
-    return `rgb(${red},${green},${blue})`;
+  indexColorPicher = (index, step) => {
+    let [offset, rgb] = [index * 2, index % 3];
+    let color = [offset, offset, offset];
+    color[rgb] += step;
+    return `rgb(${color[0]},${color[1]},${color[2]})`;
   };
 }
