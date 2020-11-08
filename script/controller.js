@@ -15,9 +15,9 @@ class Controller {
       },
     });
     this._api.addEventHandler({
-      pending: "",
-      success: "",
-      error: "",
+      pending: (e) => console.log(e),
+      success: this.onReceiveHandler,
+      error: (e) => console.log(e),
     });
   };
 
@@ -110,13 +110,13 @@ class Controller {
       ]);
     }
   };
-  onReceiveResultHandler = (data) => {
+  onReceiveHandler = (data) => {
     const { mode } = this._model.readModel(
       "dynamic-view",
       "dynamic-view-group"
     );
     if (mode !== "root") return;
-    const { container: prev } = _modal.readModel("result-view", "results");
+    const { container: prev } = this._model.readModel("result-view", "results");
     this._model.changeModel([
       {
         view: "result-view",

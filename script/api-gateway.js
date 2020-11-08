@@ -11,6 +11,10 @@ class ApiGateway {
     this.onErrorHandler = eventHandlers["error"];
   };
 
+  success = (dummy) => {
+    this.onSuccessHandler(dummy);
+  };
+
   openSSE = (target) => {
     this.es = new EventSource(`${ApiGateway.__server_path__}/target`, {
       withCredentials: false,

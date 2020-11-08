@@ -28,20 +28,4 @@ class View {
       }
     }
   };
-
-  // getViewData = (view, type) => {
-  //   let data;
-  //   switch (type) {
-  //     case "code":
-  //       data = this._views[view].GetCodeData();
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   return data;
-  // };
-
-  // quickChange = (view, element) => {
-  //   this._views[view].QuickChange(element);
-  // };
 }

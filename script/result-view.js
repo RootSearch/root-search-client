@@ -58,7 +58,7 @@ class ResultView {
     container.slice(this.pivot).forEach((element) => {
       const [position, index] = this._map.getNextPosition();
       if (!position) return;
-      const node = new CoffeeNode(pos, element, index, {
+      const node = new CoffeeNode(position, element, index, {
         click: () => window.open(element.link, "_blank").focus(),
       });
       this.nodes.push(node);
