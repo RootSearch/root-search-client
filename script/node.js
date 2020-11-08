@@ -137,9 +137,9 @@ class CoffeeNode {
   };
 
   indexColorPicher = (index, step) => {
-    let [offset, rgb] = [index * 2, index % 3];
-    let color = [offset, offset, offset];
-    color[rgb] += step;
-    return `rgb(${color[0]},${color[1]},${color[2]})`;
+    let [offset, i] = [index * 2, index % 3];
+    let rgb = [offset, offset, offset];
+    rgb[i] += step;
+    return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
   };
 }
