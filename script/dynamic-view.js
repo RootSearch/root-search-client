@@ -14,7 +14,7 @@ class DynamicView {
   };
 
   addEventHandler = (eventHandlers) => {
-    // this.searchBar.click(eventHandlers["search-bar"]);
+    this.searchBar.change(eventHandlers["search-bar"]);
     this.centerButton.container.click(eventHandlers["root-button"]);
   };
 
@@ -33,7 +33,6 @@ class DynamicView {
   _update = (name, data) => {
     switch (name) {
       case "search-bar":
-        this._showTextBox(data);
         break;
       case "center-button":
         this._switchDynamicView(data);

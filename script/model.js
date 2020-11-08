@@ -37,6 +37,10 @@ class Model {
     return this._model[view].object[name].data;
   };
 
+  showModel = () => {
+    return this._model;
+  };
+
   _updateView = () => {
     this._modifiedBubbling();
     this._view.update(this._model);

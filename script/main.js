@@ -1,4 +1,4 @@
-const apigateway
+let apigateway;
 $(document).ready(() => {
   console.log("ready");
 
@@ -12,7 +12,7 @@ $(document).ready(() => {
       object: {
         "search-bar": {
           modified: false,
-          data: {},
+          data: "",
         },
         "center-button": {
           modified: false,

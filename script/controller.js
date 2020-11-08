@@ -33,12 +33,12 @@ class Controller {
    *  ]
    */
 
-  onChangeHandler = () => {
-    // $(".dynamic-view").toggleClass("search-mode root-mode");
-    // $("#search-bar").toggleClass("interaction-view");
-    // this._model.changeModel([
-    //   { view: "base-view", object: "text-input", data: { show: true } },
-    // ]);
+  onChangeHandler = (e) => {
+    console.log($(e.target).val());
+    this._model.changeModel([
+      { view: "dynamic-view", object: "search-bar", data: $(e.target).val() },
+    ]);
+    console.log(this._model.showModel());
   };
   onSearchHandler = () => {
     // this._view.QuickChange("base-view", "goButton");
