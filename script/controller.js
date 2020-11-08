@@ -7,7 +7,7 @@ class Controller {
   };
 
   addEventHandler = () => {
-    this._view.AddEventHandler({
+    this._view.addEventHandler({
       "base-view": {
         "center-button": this.BaseView_ShowOverlay,
         "go-button": this.BaseView_MakeGiftCard,

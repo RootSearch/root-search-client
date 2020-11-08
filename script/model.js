@@ -29,7 +29,7 @@ class Model {
           },
         },
       },
-      "node-view": {
+      "result-view": {
         modified: false,
         object: {
           nodes: {

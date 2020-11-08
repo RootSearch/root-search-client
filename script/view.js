@@ -6,21 +6,21 @@ class View {
     this._views = views;
   };
 
-  AddEventHandler = (eventHandlers) => {
+  addEventHandler = (eventHandlers) => {
     if (eventHandlers === undefined) return;
     for (const key in eventHandlers) {
       if (eventHandlers.hasOwnProperty(key)) {
         const element = eventHandlers[key];
-        this._views[key].AddEventHandler(element);
+        this._views[key].addEventHandler(element);
       }
     }
   };
 
-  update = (viewModel) => {
-    if (viewModel === undefined) return;
-    for (const key in viewModel) {
-      if (viewModel.hasOwnProperty(key)) {
-        const element = viewModel[key];
+  update = (model) => {
+    if (model === undefined) return;
+    for (const key in model) {
+      if (model.hasOwnProperty(key)) {
+        const element = model[key];
         if (element.modified) {
           this._views[key].update(element.object);
         }
@@ -28,19 +28,19 @@ class View {
     }
   };
 
-  GetViewData = (view, type) => {
-    let data;
-    switch (type) {
-      case "code":
-        data = this._views[view].GetCodeData();
-        break;
-      default:
-        break;
-    }
-    return data;
-  };
+  // getViewData = (view, type) => {
+  //   let data;
+  //   switch (type) {
+  //     case "code":
+  //       data = this._views[view].GetCodeData();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   return data;
+  // };
 
-  QuickChange = (view, element) => {
-    this._views[view].QuickChange(element);
-  };
+  // quickChange = (view, element) => {
+  //   this._views[view].QuickChange(element);
+  // };
 }

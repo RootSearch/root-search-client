@@ -80,52 +80,36 @@ class CoffeeNode {
     //색상값 연결
     this.decoration.halo.css({
       "background-color": this.indexColorPicher(index, 15),
-      // "background-color": this.positionColorPicker(
-      //   position.top,
-      //   position.left,
-      //   255
-      // ),
     });
 
     this.decoration.core.css({
       "background-color": this.indexColorPicher(index, 15),
-      // "background-color": this.positionColorPicker(
-      //   position.top,
-      //   position.left,
-      //   235
-      // ),
     });
 
     this.decoration.modalCore.css({
       "background-color": this.indexColorPicher(index, 15),
-      // "background-color": this.positionColorPicker(
-      //   position.top,
-      //   position.left,
-      //   235
-      // ),
     });
 
-    //이벤트 연결
-    this.decoration.core.click(() => {
+    //이벤트 연결 1:좌, 2:휠클릭. 3:우
+    this.decoration.core.click((e) => {
       if (eventHandler.click) eventHandler.click();
       this.decoration.image.removeClass("coffee-bean").addClass("coffee-cup");
       this.decoration.modalCoreImage
         .removeClass("coffee-bean")
         .addClass("coffee-cup");
+      this.isClicked = true;
     });
 
     this.decoration.core.hover(
       () => {
         if (eventHandler.enter) eventHandler.enter();
         this.modal.addClass("show").removeClass("hide");
-        this.isClicked = true;
       },
       () => {
         if (eventHandler.leave) eventHandler.leave();
         this.modal.addClass("hide").removeClass("show");
       }
     );
-    console.log(index);
   }
 
   positionColorPicker = (top, left, max) => {
