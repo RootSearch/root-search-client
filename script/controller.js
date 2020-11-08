@@ -110,13 +110,20 @@ class Controller {
       ]);
     }
   };
-  onReceiveResultHandler = () => {
+  onReceiveResultHandler = (data) => {
     const { mode } = this._model.readModel(
       "dynamic-view",
       "dynamic-view-group"
     );
-    if (mode === "root") {
-    }
+    if (mode !== "root") return;
+    const { container: prev } = _modal.readModel("result-view", "results");
+    this._model.changeModel([
+      {
+        view: "result-view",
+        object: "results",
+        data: { container: prev.concat(data) },
+      },
+    ]);
   };
   BaseView_CloseOverlay = () => {
     // this._model.changeModel([

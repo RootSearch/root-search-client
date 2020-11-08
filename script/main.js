@@ -35,7 +35,9 @@ $(document).ready(() => {
       object: {
         results: {
           modified: false,
-          data: [],
+          data: {
+            container: [],
+          },
         },
         "result-layer": {
           modified: false,

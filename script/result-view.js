@@ -15,8 +15,6 @@ class ResultView {
     this._map = map;
   };
 
-  addEventHandler = (eventHandlers) => {};
-
   update = (data) => {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
@@ -35,21 +33,29 @@ class ResultView {
         this._drawNode(data);
         break;
       case "result-layer":
-        this._reset(data);
+        this._clear(data);
         break;
       default:
     }
   };
 
-  _reset = (data) => {
-    if (data) return;
-    this.nodeLayer.empty();
-    this.modalLayer.empty();
-    this.pivot = 0;
+  _clear = (data) => {
+    console.log(data);
+    if (data.mode === "search") {
+      this.nodeLayer.empty();
+      this.modalLayer.empty();
+      this.pivot = 0;
+    }
+    if (data.mode === "root") {
+      this.nodeLayer.empty();
+      this.modalLayer.empty();
+      this.pivot = 0;
+    }
   };
 
-  _drawNode = (data) => {
-    data.slice(this.pivot).forEach((element) => {
+  _drawNode = ({ container }) => {
+    console.log(container);
+    container.slice(this.pivot).forEach((element) => {
       const [position, index] = this._map.getNextPosition();
       if (!position) return;
       const node = new CoffeeNode(pos, element, index, {
@@ -57,7 +63,7 @@ class ResultView {
       });
       this.nodes.push(node);
     });
-    this.pivot = data.length;
+    this.pivot = container.length;
   };
 
   // quickChange = (element) => {
