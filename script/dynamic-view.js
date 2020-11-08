@@ -1,15 +1,12 @@
 class DynamicView {
   constructor() {
-    this.overlay = $("#overlay");
-    this.textInput = $("#overlay > #text-box > #text-input");
-    this.closeButton = $("#overlay > #text-box > #close-icon ");
-    this.goButton = $("#overlay > #text-box > #button");
-    this.itemBox = $("#overlay > #item-box");
-    this.centerButton = $("#root-context > .node-container.root > .node-core");
-    this.centerImage = $(
-      "#root-context > .node-container > .node-core > .core-image"
-    );
-    this.haloEffect = $("#root-context > .node-container > .effect-halo");
+    this.dynamicViews = $(".dynamic-view");
+    this.searchBar = $("#search-context > #search-container > #search-bar");
+    this.centerButton = {
+      container: $("#root-context > .node-container.root"),
+      core: $("#root-context > .node-container.root > .node-core"),
+      helo: $("#root-context >.node-container.root > .effect-halo"),
+    };
   }
   linkObject = (view) => {
     this._view = view;
@@ -17,9 +14,8 @@ class DynamicView {
   };
 
   addEventHandler = (eventHandlers) => {
-    this.centerButton.click(eventHandlers["center-button"]);
-    this.goButton.click(eventHandlers["go-button"]);
-    this.closeButton.click(eventHandlers["close-button"]);
+    // this.searchBar.click(eventHandlers["search-bar"]);
+    this.centerButton.container.click(eventHandlers["root-button"]);
   };
 
   update = (data) => {
@@ -36,15 +32,20 @@ class DynamicView {
 
   _update = (name, data) => {
     switch (name) {
-      case "text-input":
+      case "search-bar":
         this._showTextBox(data);
         break;
-      case "code-book":
-        this._makeCodeBook(data);
+      case "center-button":
+        this._switchDynamicView(data);
+        break;
+      case "dynamic-view-group":
+        this._switchDynamicView(data);
         break;
       default:
     }
   };
+
+  _switchDynamicView = (data) => {};
 
   // quickChange = (element) => {
   //   switch (element) {

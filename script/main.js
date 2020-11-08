@@ -1,16 +1,63 @@
+const apigateway
 $(document).ready(() => {
   console.log("ready");
 
-  let model = new Model();
-  let view = new View();
-  let controller = new Controller();
-  let base = new BaseView();
-  let apigateway = new ApiGateway();
-  let parser = new CodeParser("CultureLand");
+  let model = new Model({
+    "base-view": {
+      modified: false,
+      object: {},
+    },
+    "dynamic-view": {
+      modified: false,
+      object: {
+        "search-bar": {
+          modified: false,
+          data: {},
+        },
+        "center-button": {
+          modified: false,
+          data: {},
+        },
+        "dynamic-view-group": {
+          modified: false,
+          data: {},
+        },
+      },
+    },
+    "result-view": {
+      modified: false,
+      object: {
+        results: {
+          modified: false,
+          data: [],
+        },
+        "result-layer": {
+          modified: false,
+          data: {},
+        },
+      },
+    },
+  });
+
+  const view = new View();
+  const controller = new Controller();
+  const base = new BaseView();
+  const dynamic = new DynamicView();
+  const result = new ResultView();
+  apigateway = new ApiGateway();
+  const nodemap = new NodeMap();
+  const parser = new CodeParser("CultureLand");
+
+  result.linkObject(view, nodemap);
+  dynamic.linkObject(view);
 
   model.linkObject(view);
-  controller.linkObject(model, view, parser);
-  view.linkObject(controller, { "base-view": base });
+  controller.linkObject(model, view, apigateway, parser);
+  view.linkObject(controller, {
+    "base-view": base,
+    "dynamic-view": dynamic,
+    "result-view": result,
+  });
 
   controller.addEventHandler();
   // controller.Preload("./style/images/", [

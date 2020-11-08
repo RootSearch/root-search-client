@@ -1,17 +1,17 @@
 class Controller {
   constructor() {}
-  linkObject = (model, view, parser) => {
+  linkObject = (model, view, api, parser) => {
     this._model = model;
     this._view = view;
+    this._api = api;
     this._parser = parser;
   };
 
   addEventHandler = () => {
     this._view.addEventHandler({
-      "base-view": {
-        "center-button": this.BaseView_ShowOverlay,
-        "go-button": this.BaseView_MakeGiftCard,
-        "close-button": this.BaseView_CloseOverlay,
+      "dynamic-view": {
+        "search-bar": this.onChangeHandler,
+        "root-button": this.onSearchHandler,
       },
     });
   };
@@ -33,14 +33,14 @@ class Controller {
    *  ]
    */
 
-  BaseView_ShowOverlay = () => {
+  onChangeHandler = () => {
     // $(".dynamic-view").toggleClass("search-mode root-mode");
     // $("#search-bar").toggleClass("interaction-view");
     // this._model.changeModel([
     //   { view: "base-view", object: "text-input", data: { show: true } },
     // ]);
   };
-  BaseView_MakeGiftCard = () => {
+  onSearchHandler = () => {
     // this._view.QuickChange("base-view", "goButton");
     // let text = this._view.readModel("base-view", "code");
     // let codes = this._parser.Run(text);
@@ -51,6 +51,7 @@ class Controller {
     //   { view: "base-view", object: "code-book", data: codes },
     // ]);
   };
+  onReceiveResultHandler = () => {};
   BaseView_CloseOverlay = () => {
     // this._model.changeModel([
     //   { view: "base-view", object: "text-input", data: { show: false } },

@@ -1,26 +1,21 @@
 class ResultView {
   constructor() {
-    this.overlay = $("#overlay");
-    this.textInput = $("#overlay > #text-box > #text-input");
-    this.closeButton = $("#overlay > #text-box > #close-icon ");
-    this.goButton = $("#overlay > #text-box > #button");
-    this.itemBox = $("#overlay > #item-box");
-    this.centerButton = $("#root-context > .node-container.root > .node-core");
-    this.centerImage = $(
-      "#root-context > .node-container > .node-core > .core-image"
+    this.pivot = 0;
+    this.nodeLayer = $(
+      "#root-context > #result-container > #result-body > #node-layer"
     );
-    this.haloEffect = $("#root-context > .node-container > .effect-halo");
+    this.modalLayer = $(
+      "#root-context > #result-container > #result-body > #modal-layer"
+    );
+    this.nodes = [];
   }
-  linkObject = (view) => {
+  linkObject = (view, map) => {
     this._view = view;
     this._controller = view.controller;
+    this._map = map;
   };
 
-  addEventHandler = (eventHandlers) => {
-    this.centerButton.click(eventHandlers["center-button"]);
-    this.goButton.click(eventHandlers["go-button"]);
-    this.closeButton.click(eventHandlers["close-button"]);
-  };
+  addEventHandler = (eventHandlers) => {};
 
   update = (data) => {
     for (const key in data) {
@@ -36,14 +31,33 @@ class ResultView {
 
   _update = (name, data) => {
     switch (name) {
-      case "text-input":
-        this._showTextBox(data);
+      case "results":
+        this._drawNode(data);
         break;
-      case "code-book":
-        this._makeCodeBook(data);
+      case "result-layer":
+        this._reset(data);
         break;
       default:
     }
+  };
+
+  _reset = (data) => {
+    if (data) return;
+    this.nodeLayer.empty();
+    this.modalLayer.empty();
+    this.pivot = 0;
+  };
+
+  _drawNode = (data) => {
+    data.slice(this.pivot).forEach((element) => {
+      const [position, index] = this._map.getNextPosition();
+      if (!position) return;
+      const node = new CoffeeNode(pos, element, index, {
+        click: () => window.open(element.link, "_blank").focus(),
+      });
+      this.nodes.push(node);
+    });
+    this.pivot = data.length;
   };
 
   // quickChange = (element) => {

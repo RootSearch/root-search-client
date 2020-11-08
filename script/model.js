@@ -6,39 +6,8 @@
  * MVC구조중 유일하게 상태와 데이터를 저장하는 부분이다.
  */
 class Model {
-  constructor() {
-    this._model = {
-      "base-view": {
-        modified: false,
-        object: {},
-      },
-      "dynamic-view": {
-        modified: false,
-        object: {
-          "search-bar": {
-            modified: false,
-            data: {},
-          },
-          "center-button": {
-            modified: false,
-            data: {},
-          },
-          "dynamic-view-group": {
-            modified: false,
-            data: {},
-          },
-        },
-      },
-      "result-view": {
-        modified: false,
-        object: {
-          nodes: {
-            modified: false,
-            data: [],
-          },
-        },
-      },
-    };
+  constructor(modal) {
+    this._model = modal;
   }
 
   linkObject = (view) => {
