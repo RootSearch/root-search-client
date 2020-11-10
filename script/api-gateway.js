@@ -38,7 +38,7 @@ class ApiGateway {
   };
 
   _success = (message, data) => {
-    if (this.onSuccessHandler) this.onSuccessHandler(JSON.parse(data).Results);
+    if (this.onSuccessHandler) this.onSuccessHandler(JSON.parse(data));
   };
 
   _error = (e) => {

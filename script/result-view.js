@@ -20,6 +20,9 @@ class ResultView {
   };
 
   addEventHandler = (eventHandlers) => {
+    this.onClickResultHandler = eventHandlers["click-result"];
+    this.onRemoveResultHandler = eventHandlers["remove-result"];
+    this.onRestoreResultHandler = eventHandlers["restore-result"];
     this.onStopHandler = eventHandlers["stop-search"];
   };
 
@@ -94,7 +97,9 @@ class ResultView {
         return;
       }
       const node = new CoffeeNode(position, element, index, {
-        click: () => window.open(element.link, "_blank").focus(),
+        leftClick: this.onClickResultHandler(element.link),
+        remove: this.onRemoveResultHandler(element.keyword),
+        restore: this.onRestoreResultHandler(element.keyword),
       });
       this.nodes.push(node);
     }, ResultView.__intervalTime__);

@@ -14,6 +14,9 @@ class Controller {
         "root-button": this.onSearchHandler,
       },
       "result-view": {
+        "click-result": this.onClickResultHandler,
+        "remove-result": this.removeResultHandler,
+        "restore-result": this.restoreResultHandler,
         "stop-search": this.stopSearchHandler,
       },
     });
@@ -146,6 +149,11 @@ class Controller {
       },
     ]);
   };
+
+  onClickResultHandler = (link) => () => {
+    window.open(link, "_blank").focus();
+  };
+
   stopSearchHandler = () => {
     this._api.stopSearch();
     this._model.changeModel([
@@ -156,4 +164,8 @@ class Controller {
       },
     ]);
   };
+
+  removeResultHandler = (keyword) => () => {};
+
+  restoreResultHandler = (keyword) => () => {};
 }

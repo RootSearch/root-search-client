@@ -1,6 +1,4 @@
 $(document).ready(() => {
-  console.log("ready");
-
   const model = new Model(viewModel);
 
   const view = new View();
@@ -24,6 +22,8 @@ $(document).ready(() => {
   });
 
   controller.addEventHandler();
+  cancelMouseEvent();
+  console.log("ready");
 });
 
 const prototype = {
@@ -78,4 +78,10 @@ const viewModel = {
       },
     },
   },
+};
+
+const cancelMouseEvent = () => {
+  $(document).on("contextmenu dragstart selectstart", (e) => {
+    return false;
+  });
 };
