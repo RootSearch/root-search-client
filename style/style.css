@@ -437,6 +437,8 @@ div::selection {
   > .title {
   display: inline-block;
   width: 210px;
+  height: 75px;
+  overflow-y: hidden;
   margin-left: 5px;
   color: #38220f;
   font-size: 18px;
@@ -451,7 +453,11 @@ div::selection {
   > .result-preview
   > .context
   > .snippet {
-  color: #634832;
+  margin-top: 2px;
+  border-top: 1px #38220f50 solid;
+  padding-top: 2px;
+  height: 75px;
+  overflow-y: hidden;
   display: block;
   font-size: 14px;
 }

@@ -74,7 +74,7 @@ class CoffeeNode {
     this.isClicked = false;
 
     this.context.title.text(
-      data.title.length > 55 ? data.title.slice(0, 54) + " ..." : data.title
+      data.title.length > 46 ? data.title.slice(0, 45) + "..." : data.title
     );
     this.context.snippet.text(
       data.snippet.length > 166
