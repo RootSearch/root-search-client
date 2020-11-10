@@ -53,24 +53,24 @@ class CoffeeNode {
 
     //위치 지정
     this.position = position;
-    this._setPosition(position);
+    this._setPosition(this.position);
 
     //내부 객체 연결
     this._linkObjects();
 
-    //색상값 연결
+    //색상값 작성
     this.color = CoffeeNode.__indexColorPicher__(index, 15);
-    this._changeNodeColor(
-      this.isValid ? this.color : CoffeeNode.__invalidColor__
-    );
 
     //오버레이 모달 위치
     this.modal
       .children(".context")
-      .addClass(position.left < 50 ? "left" : "right");
+      .addClass(this.position.left < 50 ? "left" : "right");
 
     //데이터 작성
     this._setData(data);
+
+    //뷰 작성
+    this._updateValid(this.valid);
 
     //이벤트 연결 1:좌, 2:휠클릭. 3:우
     this.decoration.core.mousedown((e) => {
@@ -80,7 +80,7 @@ class CoffeeNode {
         this._leftClick();
       }
       if (e.which === 3) {
-        if (this.isValid) {
+        if (this.valid) {
           if (eventHandler.remove) eventHandler.remove();
         } else {
           if (eventHandler.restore) eventHandler.restore();
@@ -92,17 +92,23 @@ class CoffeeNode {
     //호버 이벤트 연결
     this.decoration.core.hover(
       () => {
-        if (!this.isValid) return;
+        if (!this.valid) return;
         if (eventHandler.enter) eventHandler.enter();
         this._hoverEnter();
       },
       () => {
-        if (!this.isValid) return;
+        if (!this.valid) return;
         if (eventHandler.leave) eventHandler.leave();
         this._hoverLeave();
       }
     );
   }
+
+  update = (valid) => {
+    this.valid = valid;
+    this._updateValid(this.valid);
+    return this.position;
+  };
 
   _setPosition = (position) => {
     this.root = $(CoffeeNode.__node__)
@@ -143,7 +149,8 @@ class CoffeeNode {
   _setData = (data) => {
     //내부 내용 연결
     this.isClicked = false;
-    this.isValid = data.valid;
+    this.valid = data.valid;
+    this.id = data.id;
     this.keyword = data.keyword;
 
     this.context.title.text(
@@ -187,8 +194,12 @@ class CoffeeNode {
     this.isClicked = true;
   };
 
+  _updateValid = (valid) => {
+    if (valid) this._restore();
+    else this._remove();
+  };
+
   _remove = () => {
-    this.isValid = false;
     this.decoration.halo
       .addClass("effect-halo-blink")
       .removeClass("effect-halo-runnig");
@@ -197,7 +208,6 @@ class CoffeeNode {
   };
 
   _restore = () => {
-    this.isValid = true;
     this.decoration.halo
       .addClass("effect-halo-runnig")
       .removeClass("effect-halo-blink");

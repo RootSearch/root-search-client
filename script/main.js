@@ -27,6 +27,7 @@ $(document).ready(() => {
 });
 
 const prototype = {
+  id: "SeqId",
   title: "Title",
   snippet: "Snippet",
   link: "Link",

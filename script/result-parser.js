@@ -7,6 +7,7 @@ class ResultParser {
     return data.map((element) => ({
       valid: true,
       keyword: keyword,
+      id: element[this.prototype.id],
       title: element[this.prototype.title],
       snippet: element[this.prototype.snippet],
       link: element[this.prototype.link],

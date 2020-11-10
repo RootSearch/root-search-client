@@ -11,7 +11,7 @@ class ResultView {
     );
     this.intervalId = null;
     this.queue = [];
-    this.nodes = [];
+    this.nodes = {};
   }
   linkObject = (view, map) => {
     this._view = view;
@@ -23,6 +23,8 @@ class ResultView {
     this.onClickResultHandler = eventHandlers["click-result"];
     this.onRemoveResultHandler = eventHandlers["remove-result"];
     this.onRestoreResultHandler = eventHandlers["restore-result"];
+    this.onRemovePosition = eventHandlers["remove-position"];
+    this.onRestorePosition = eventHandlers["restore-position"];
     this.onStopHandler = eventHandlers["stop-search"];
   };
 
@@ -41,7 +43,8 @@ class ResultView {
   _update = (name, data) => {
     switch (name) {
       case "results":
-        this._enqueue(data);
+        if (data.container.length === this.pivot) this._refresh(data);
+        else this._enqueue(data);
         break;
       case "result-layer":
         this._clear(data);
@@ -54,6 +57,8 @@ class ResultView {
     this._map.reset();
     this.nodeLayer.empty();
     this.modalLayer.empty();
+    this.queue = [];
+    this.nodes = {};
     this.pivot = 0;
   };
 
@@ -65,6 +70,17 @@ class ResultView {
     if (mode === "root") {
       this.intervalId = this._start(this.intervalId);
     }
+  };
+
+  _refresh = ({ container }) => {
+    const target = container.filter(
+      (element) => element.valid !== this.nodes[element.id].valid
+    );
+    console.log(target);
+
+    target.forEach((element) => {
+      this.nodes[element.id].update(element.valid);
+    });
   };
 
   _enqueue = ({ container }) => {
@@ -101,7 +117,7 @@ class ResultView {
         remove: this.onRemoveResultHandler(element.keyword),
         restore: this.onRestoreResultHandler(element.keyword),
       });
-      this.nodes.push(node);
+      this.nodes[element.id] = node;
     }, ResultView.__intervalTime__);
     return intervalId;
   };

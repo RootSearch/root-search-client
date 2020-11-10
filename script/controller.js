@@ -17,6 +17,8 @@ class Controller {
         "click-result": this.onClickResultHandler,
         "remove-result": this.removeResultHandler,
         "restore-result": this.restoreResultHandler,
+        "remove-position": this.removePositionMap,
+        "restore-position": this.restorePositionMap,
         "stop-search": this.stopSearchHandler,
       },
     });
@@ -180,6 +182,7 @@ class Controller {
   };
 
   restoreResultHandler = (keyword) => () => {
+    const { container: prev } = this._model.readModel("result-view", "results");
     const next = prev.map((element) =>
       keyword === element.keyword ? { ...element, valid: true } : element
     );
@@ -191,4 +194,7 @@ class Controller {
       },
     ]);
   };
+
+  restorePositionMap = (position) => {};
+  removePositionMap = (position) => {};
 }
