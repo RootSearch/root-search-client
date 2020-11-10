@@ -508,6 +508,10 @@ class NodeMap {
     return [nextPosition, this.positions.length];
   };
 
+  pushPositions = (positions) => {
+    this.positions = this.positions.concat(positions);
+  };
+
   reset = () => {
     this.positions = NodeMap.__deep_clone__(NodeMap.__root_map__);
   };
