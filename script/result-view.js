@@ -1,6 +1,7 @@
 class ResultView {
   constructor() {
     this.pivot = 0;
+    this.isDrawing = false;
     this.nodeLayer = $(
       "#root-context > #result-container > #result-body > #node-layer"
     );
@@ -44,16 +45,17 @@ class ResultView {
   };
 
   _clear = (data) => {
-    console.log(data);
     if (data.mode === "search") {
       this.nodeLayer.empty();
       this.modalLayer.empty();
       this.pivot = 0;
+      this.isDrawing = false;
     }
     if (data.mode === "root") {
       this.nodeLayer.empty();
       this.modalLayer.empty();
       this.pivot = 0;
+      this.isDrawing = true;
     }
   };
 
@@ -61,7 +63,10 @@ class ResultView {
     container.slice(this.pivot).forEach((element) => {
       const [position, index] = this._map.getNextPosition();
       if (!position) {
-        this.onStopHandler();
+        if (this.isDrawing) {
+          this.isDrawing = false;
+          this.onStopHandler();
+        }
         return;
       }
       const node = new CoffeeNode(position, element, index, {

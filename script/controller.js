@@ -144,5 +144,12 @@ class Controller {
   };
   stopSearchHandler = () => {
     this._api.stopSearch();
+    this._model.changeModel([
+      {
+        view: "dynamic-view",
+        object: "center-button",
+        data: { mode: "end" },
+      },
+    ]);
   };
 }
