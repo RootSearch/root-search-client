@@ -24,6 +24,7 @@ class ApiGateway {
   };
 
   stopSearch = () => {
+    if (!this.eventSource || this.eventSource.readyState === 2) return;
     this.eventSource.close();
     this.eventSource = undefined;
   };
@@ -33,22 +34,19 @@ class ApiGateway {
   };
 
   _pending = (e) => {
-    console.log("open sse", e);
-    this.onPendingHandler(e);
+    if (this.onPendingHandler) this.onPendingHandler(e);
   };
 
   _success = (message, data) => {
-    console.log(message, JSON.parse(data));
-    // this.onSuccessHandler(data);
+    if (this.onSuccessHandler) this.onSuccessHandler(JSON.parse(data).Results);
   };
 
   _error = (e) => {
-    console.log("error sse", e);
-    this.onErrorHandler(e);
+    if (this.onErrorHandler) this.onErrorHandler(e);
   };
 
   _createEventSource = (eventSource, target) => {
-    if (eventSource) eventSource.close();
+    if (eventSource && eventSource.readyState !== 2) eventSource.close();
     return new EventSource(`${ApiGateway.__server_path__}/${target}`, {
       withCredentials: false,
     });
@@ -64,7 +62,7 @@ class ApiGateway {
     );
     eventSource.onerror = (e) => {
       eventHandlers.error(e);
-      eventSource.close();
+      if (eventSource && eventSource.readyState !== 2) eventSource.close();
     };
   };
 }

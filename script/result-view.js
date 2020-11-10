@@ -15,6 +15,10 @@ class ResultView {
     this._map = map;
   };
 
+  addEventHandler = (eventHandlers) => {
+    this.onStopHandler = eventHandlers["stop-search"];
+  };
+
   update = (data) => {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
@@ -54,10 +58,12 @@ class ResultView {
   };
 
   _drawNode = ({ container }) => {
-    console.log(container);
     container.slice(this.pivot).forEach((element) => {
       const [position, index] = this._map.getNextPosition();
-      if (!position) return;
+      if (!position) {
+        this.onStopHandler();
+        return;
+      }
       const node = new CoffeeNode(position, element, index, {
         click: () => window.open(element.link, "_blank").focus(),
       });

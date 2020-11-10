@@ -11,7 +11,7 @@ $(document).ready(() => {
   const result = new ResultView();
   apigateway = new ApiGateway();
   const nodemap = new NodeMap();
-  const parser = new CodeParser();
+  const parser = new ResultParser(prototype);
 
   result.linkObject(view, nodemap);
   dynamic.linkObject(view);
@@ -25,9 +25,14 @@ $(document).ready(() => {
   });
 
   controller.addEventHandler();
-
-  // apigateway.openSSE("covid-19");
 });
+
+const prototype = {
+  title: "Title",
+  snippet: "Snippet",
+  link: "Link",
+  thumbnail: "Thumbnail",
+};
 
 const viewModel = {
   "base-view": {

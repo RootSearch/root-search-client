@@ -13,6 +13,9 @@ class Controller {
         "search-bar": this.onChangeHandler,
         "root-button": this.onSearchHandler,
       },
+      "result-view": {
+        "stop-search": this.stopSearchHandler,
+      },
     });
     this._api.addEventHandler({
       pending: (e) => console.log(e),
@@ -43,7 +46,7 @@ class Controller {
       {
         view: "dynamic-view",
         object: "search-bar",
-        data: { search: $(e.target).val() },
+        data: { search: $(e.target).val().trim() },
       },
     ]);
   };
@@ -53,6 +56,8 @@ class Controller {
       "dynamic-view",
       "dynamic-view-group"
     );
+    const { search } = this._model.readModel("dynamic-view", "search-bar");
+    if (search.length === 0) return;
 
     if (mode === "search") {
       // 노드 낙하
@@ -71,9 +76,7 @@ class Controller {
 
       setTimeout(() => {
         //검색 실행
-        const { search } = this._model.readModel("dynamic-view", "search-bar");
         this._api.startSearch(search);
-
         //화면 변경
         this._model.changeModel([
           {
@@ -98,7 +101,6 @@ class Controller {
     if (mode === "root") {
       //검색 종료
       this._api.stopSearch();
-
       //화면 복귀
       this._model.changeModel([
         {
@@ -131,17 +133,16 @@ class Controller {
     );
     if (mode !== "root") return;
     const { container: prev } = this._model.readModel("result-view", "results");
+    const next = this._parser.run(data);
     this._model.changeModel([
       {
         view: "result-view",
         object: "results",
-        data: { container: prev.concat(data) },
+        data: { container: prev.concat(next) },
       },
     ]);
   };
-  BaseView_CloseOverlay = () => {
-    // this._model.changeModel([
-    //   { view: "base-view", object: "text-input", data: { show: false } },
-    // ]);
+  stopSearchHandler = () => {
+    this._api.stopSearch();
   };
 }

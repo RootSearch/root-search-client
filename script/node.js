@@ -74,7 +74,7 @@ class CoffeeNode {
     this.isClicked = false;
     this.context.title.text(data.title);
     this.context.snippet.text(data.snippet);
-    if (data.thumbnail !== "null")
+    if (data.thumbnail !== null)
       this.context.thumbnail.attr("src", data.thumbnail);
 
     //색상값 연결

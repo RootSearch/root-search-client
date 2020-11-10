@@ -1,15 +1,14 @@
-class CodeParser {
-  constructor() {}
-  run(text) {
-    let code;
-    let codeGroup = [];
-    while ((code = this.codeReg.exec(text)) !== null) {
-      let pin = code[0].replace(/-/gi, "");
-      codeGroup.push(this.pinFormat(pin));
-    }
-    return codeGroup;
+class ResultParser {
+  constructor(prototype) {
+    this.prototype = prototype;
   }
-  pinFormat(pin) {
-    return [pin.slice(0, 4), pin.slice(4, 8), pin.slice(8, 12), pin.slice(12)];
+  run(data) {
+    if (!Array.isArray(data)) return;
+    return data.map((element) => ({
+      title: element[this.prototype.title],
+      snippet: element[this.prototype.snippet],
+      link: element[this.prototype.link],
+      thumbnail: element[this.prototype.thumbnail],
+    }));
   }
 }
