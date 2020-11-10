@@ -1,4 +1,3 @@
-let apigateway;
 $(document).ready(() => {
   console.log("ready");
 
@@ -9,7 +8,7 @@ $(document).ready(() => {
   const base = new BaseView();
   const dynamic = new DynamicView();
   const result = new ResultView();
-  apigateway = new ApiGateway();
+  const apigateway = new ApiGateway();
   const nodemap = new NodeMap();
   const parser = new ResultParser(prototype);
 

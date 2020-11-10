@@ -45,7 +45,7 @@ class DynamicView {
     }
   };
   _onChangeSearchBar = (data) => {
-    console.log(data);
+    this.searchBar.val(data.search);
   };
 
   _switchCenterButton = (data) => {

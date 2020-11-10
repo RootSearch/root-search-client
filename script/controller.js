@@ -105,6 +105,11 @@ class Controller {
       this._model.changeModel([
         {
           view: "dynamic-view",
+          object: "search-bar",
+          data: { search: "" },
+        },
+        {
+          view: "dynamic-view",
           object: "center-button",
           data: { mode: "search" },
         },
