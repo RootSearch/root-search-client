@@ -72,8 +72,15 @@ class CoffeeNode {
 
     //내부 내용 연결
     this.isClicked = false;
-    this.context.title.text(data.title);
-    this.context.snippet.text(data.snippet);
+
+    this.context.title.text(
+      data.title.length > 55 ? data.title.slice(0, 54) + " ..." : data.title
+    );
+    this.context.snippet.text(
+      data.snippet.length > 166
+        ? data.snippet.slice(0, 165) + " ..."
+        : data.snippet
+    );
     if (data.thumbnail !== null)
       this.context.thumbnail.attr("src", data.thumbnail);
 
