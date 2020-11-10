@@ -24,6 +24,7 @@ class CoffeeNode {
                 </div>
             </div>`;
   static __size__ = 20;
+  static __lifetime__ = 5000;
 
   static __positionColorPicker__ = (top, left, max) => {
     let [y, x] = [top / 70, left / 100];
@@ -74,7 +75,6 @@ class CoffeeNode {
 
     //이벤트 연결 1:좌, 2:휠클릭. 3:우
     this.decoration.core.mousedown((e) => {
-      console.log(e.which);
       if (e.which === 1) {
         if (eventHandler.leftClick) eventHandler.leftClick();
         this._leftClick();
@@ -86,7 +86,6 @@ class CoffeeNode {
           if (eventHandler.restore) eventHandler.restore();
         }
       }
-      e.stopPropagation();
     });
 
     //호버 이벤트 연결
@@ -108,6 +107,11 @@ class CoffeeNode {
     this.valid = valid;
     this._updateValid(this.valid);
     return this.position;
+  };
+
+  remove = () => {
+    this.root.remove();
+    this.modal.remove();
   };
 
   _setPosition = (position) => {
@@ -205,6 +209,9 @@ class CoffeeNode {
       .removeClass("effect-halo-runnig");
     this.modal.addClass("hide").removeClass("show");
     this._changeNodeColor(CoffeeNode.__invalidColor__);
+
+    //FIXME: 이 부분은 지금 노드를 본인이 스스로 삭제하고있음.
+    this.lifetime = setTimeout(this.remove, CoffeeNode.__lifetime__);
   };
 
   _restore = () => {
@@ -212,5 +219,8 @@ class CoffeeNode {
       .addClass("effect-halo-runnig")
       .removeClass("effect-halo-blink");
     this._changeNodeColor(this.color);
+
+    //FIXME: 삭제를 취소하는 부분
+    clearTimeout(this.lifetime);
   };
 }
