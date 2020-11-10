@@ -44,43 +44,43 @@ class DynamicView {
       default:
     }
   };
-  _onChangeSearchBar = (data) => {
-    this.searchBar.val(data.search);
+  _onChangeSearchBar = ({ search }) => {
+    this.searchBar.val(search);
   };
 
-  _switchCenterButton = (data) => {
-    if (data.mode === "search") {
+  _switchCenterButton = ({ mode }) => {
+    if (mode === "search") {
       this.centerButton.helo
         .addClass("effect-halo-blink")
         .removeClass("effect-halo-runnig");
     }
-    if (data.mode === "falling") {
+    if (mode === "falling") {
       this.centerButton.container.addClass("fall-down").removeClass("default");
       $(".node-core").removeClass("interaction-view");
     }
-    if (data.mode === "root") {
+    if (mode === "root") {
       this.centerButton.helo
         .addClass("effect-halo-runnig")
         .removeClass("effect-halo-blink");
       this.centerButton.container.addClass("default").removeClass("fall-down");
       $(".node-core").addClass("interaction-view");
     }
-    if (data.mode === "end") {
+    if (mode === "end") {
       this.centerButton.helo
         .addClass("effect-halo-blink")
         .removeClass("effect-halo-runnig");
     }
   };
 
-  _switchDynamicView = (data) => {
-    if (data.mode === "search") {
+  _switchDynamicView = ({ mode }) => {
+    if (mode === "search") {
       this.searchBar.addClass("interaction-view");
       this.dynamicViews.addClass("search-mode").removeClass("root-mode");
     }
-    if (data.mode === "falling") {
+    if (mode === "falling") {
       this.searchBar.removeClass("interaction-view");
     }
-    if (data.mode === "root") {
+    if (mode === "root") {
       this.dynamicViews.addClass("root-mode").removeClass("search-mode");
     }
   };

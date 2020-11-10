@@ -1,4 +1,5 @@
 class ResultView {
+  static __intervalTime__ = 100;
   constructor() {
     this.pivot = 0;
     this.isDrawing = false;
@@ -8,6 +9,8 @@ class ResultView {
     this.modalLayer = $(
       "#root-context > #result-container > #result-body > #modal-layer"
     );
+    this.intervalId = null;
+    this.queue = [];
     this.nodes = [];
   }
   linkObject = (view, map) => {
@@ -35,7 +38,7 @@ class ResultView {
   _update = (name, data) => {
     switch (name) {
       case "results":
-        this._drawNode(data);
+        this._enqueue(data);
         break;
       case "result-layer":
         this._clear(data);
@@ -44,38 +47,56 @@ class ResultView {
     }
   };
 
-  _clear = (data) => {
-    if (data.mode === "search") {
-      this.nodeLayer.empty();
-      this.modalLayer.empty();
-      this.pivot = 0;
-      this.isDrawing = false;
+  _reset = () => {
+    this.nodeLayer.empty();
+    this.modalLayer.empty();
+    this.pivot = 0;
+  };
+
+  _clear = ({ mode }) => {
+    if (mode === "search") {
+      this._reset();
+      this.intervalId = this._stop(this.intervalId);
     }
-    if (data.mode === "root") {
-      this.nodeLayer.empty();
-      this.modalLayer.empty();
-      this.pivot = 0;
-      this.isDrawing = true;
+    if (mode === "root") {
+      this.intervalId = this._start(this.intervalId);
     }
   };
 
-  _drawNode = ({ container }) => {
-    container.slice(this.pivot).forEach((element, index) => {
-      setTimeout(() => {
-        const [position, index] = this._map.getNextPosition();
-        if (!position) {
-          if (this.isDrawing) {
-            this.isDrawing = false;
-            this.onStopHandler();
-          }
-          return;
-        }
-        const node = new CoffeeNode(position, element, index, {
-          click: () => window.open(element.link, "_blank").focus(),
-        });
-        this.nodes.push(node);
-      }, 100 * index);
-    });
+  _enqueue = ({ container }) => {
+    this.queue = this.queue.concat(container.slice(this.pivot));
     this.pivot = container.length;
+  };
+
+  _start = (intervalId) => {
+    if (intervalId) return;
+    this.isDrawing = true;
+    return this._draw();
+  };
+  _stop = (intervalId) => {
+    if (!intervalId) return;
+    this.isDrawing = false;
+    clearInterval(intervalId);
+    return null;
+  };
+
+  _draw = () => {
+    const intervalId = setInterval(() => {
+      if (this.queue.length === 0) return;
+      const element = this.queue.shift();
+      const [position, index] = this._map.getNextPosition();
+      if (!position) {
+        if (this.isDrawing) {
+          this._stop(this.intervalId);
+          this.onStopHandler();
+        }
+        return;
+      }
+      const node = new CoffeeNode(position, element, index, {
+        click: () => window.open(element.link, "_blank").focus(),
+      });
+      this.nodes.push(node);
+    }, ResultView.__intervalTime__);
+    return intervalId;
   };
 }
