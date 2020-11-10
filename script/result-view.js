@@ -60,19 +60,21 @@ class ResultView {
   };
 
   _drawNode = ({ container }) => {
-    container.slice(this.pivot).forEach((element) => {
-      const [position, index] = this._map.getNextPosition();
-      if (!position) {
-        if (this.isDrawing) {
-          this.isDrawing = false;
-          this.onStopHandler();
+    container.slice(this.pivot).forEach((element, index) => {
+      setTimeout(() => {
+        const [position, index] = this._map.getNextPosition();
+        if (!position) {
+          if (this.isDrawing) {
+            this.isDrawing = false;
+            this.onStopHandler();
+          }
+          return;
         }
-        return;
-      }
-      const node = new CoffeeNode(position, element, index, {
-        click: () => window.open(element.link, "_blank").focus(),
-      });
-      this.nodes.push(node);
+        const node = new CoffeeNode(position, element, index, {
+          click: () => window.open(element.link, "_blank").focus(),
+        });
+        this.nodes.push(node);
+      }, 100 * index);
     });
     this.pivot = container.length;
   };
