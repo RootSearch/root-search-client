@@ -25,6 +25,8 @@ $(document).ready(() => {
   });
 
   controller.addEventHandler();
+
+  // apigateway.openSSE("covid-19");
 });
 
 const viewModel = {

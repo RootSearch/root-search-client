@@ -1,5 +1,5 @@
 class ApiGateway {
-  static __server_path__ = "http://localhost:5000/search";
+  static __server_path__ = "https://localhost:5001/search";
   linkObject = (controller) => {
     this._controller = controller;
   };
@@ -16,19 +16,19 @@ class ApiGateway {
   };
 
   openSSE = (target) => {
-    this.es = new EventSource(`${ApiGateway.__server_path__}/target`, {
+    this.es = new EventSource(`${ApiGateway.__server_path__}/${target}`, {
       withCredentials: false,
     });
     this.es.onopen = (e) => {
       console.log("open sse");
     };
     this.es.onmessage = (e) => {
-      console.log("default", e);
+      console.log("default", JSON.parse(e.data));
     };
     this.es.addEventListener(
       "result",
       (e) => {
-        console.log("result", e);
+        console.log("result", JSON.parse(e.data));
       },
       false
     );

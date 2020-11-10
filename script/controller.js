@@ -39,7 +39,6 @@ class Controller {
    */
 
   onChangeHandler = (e) => {
-    console.log($(e.target).val());
     this._model.changeModel([
       {
         view: "dynamic-view",
