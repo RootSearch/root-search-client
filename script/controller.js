@@ -55,6 +55,7 @@ class Controller {
     );
 
     if (mode === "search") {
+      // 노드 낙하
       this._model.changeModel([
         {
           view: "dynamic-view",
@@ -69,6 +70,11 @@ class Controller {
       ]);
 
       setTimeout(() => {
+        //검색 실행
+        const { search } = this._model.readModel("dynamic-view", "search-bar");
+        this._api.startSearch(search);
+
+        //화면 변경
         this._model.changeModel([
           {
             view: "dynamic-view",
@@ -90,6 +96,10 @@ class Controller {
     }
 
     if (mode === "root") {
+      //검색 종료
+      this._api.stopSearch();
+
+      //화면 복귀
       this._model.changeModel([
         {
           view: "dynamic-view",

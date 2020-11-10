@@ -3,7 +3,9 @@ class ApiGateway {
   linkObject = (controller) => {
     this._controller = controller;
   };
-  constructor() {}
+  constructor() {
+    this.eventSource = undefined;
+  }
 
   addEventHandler = (eventHandlers) => {
     this.onPendingHandler = eventHandlers["pending"];
@@ -11,30 +13,58 @@ class ApiGateway {
     this.onErrorHandler = eventHandlers["error"];
   };
 
-  success = (dummy) => {
-    this.onSuccessHandler(dummy);
+  startSearch = (targer) => {
+    this.eventSource = this._createEventSource(this.eventSource, targer);
+    this._addEventHandler(this.eventSource, {
+      open: this._open,
+      pending: this._pending,
+      success: this._success,
+      error: this._error,
+    });
   };
 
-  openSSE = (target) => {
-    this.es = new EventSource(`${ApiGateway.__server_path__}/${target}`, {
+  stopSearch = () => {
+    this.eventSource.close();
+    this.eventSource = undefined;
+  };
+
+  _open = (e) => {
+    console.log(e);
+  };
+
+  _pending = (e) => {
+    console.log("open sse", e);
+    this.onPendingHandler(e);
+  };
+
+  _success = (message, data) => {
+    console.log(message, JSON.parse(data));
+    // this.onSuccessHandler(data);
+  };
+
+  _error = (e) => {
+    console.log("error sse", e);
+    this.onErrorHandler(e);
+  };
+
+  _createEventSource = (eventSource, target) => {
+    if (eventSource) eventSource.close();
+    return new EventSource(`${ApiGateway.__server_path__}/${target}`, {
       withCredentials: false,
     });
-    this.es.onopen = (e) => {
-      console.log("open sse", e);
-    };
-    this.es.onmessage = (e) => {
-      console.log("default", JSON.parse(e.data));
-    };
-    this.es.addEventListener(
+  };
+
+  _addEventHandler = (eventSource, eventHandlers) => {
+    eventSource.onopen = eventHandlers.open;
+    eventSource.onmessage = (e) => eventHandlers.success("default", e.data);
+    eventSource.addEventListener(
       "result",
-      (e) => {
-        console.log("result", JSON.parse(e.data));
-      },
+      (e) => eventHandlers.success("result", e.data),
       false
     );
-    this.es.onerror = (e) => {
-      console.log("error sse", e);
-      this.es.close();
+    eventSource.onerror = (e) => {
+      eventHandlers.error(e);
+      eventSource.close();
     };
   };
 }
