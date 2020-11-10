@@ -17,8 +17,6 @@ class Controller {
         "click-result": this.onClickResultHandler,
         "remove-result": this.removeResultHandler,
         "restore-result": this.restoreResultHandler,
-        "remove-position": this.removePositionMap,
-        "restore-position": this.restorePositionMap,
         "stop-search": this.stopSearchHandler,
       },
     });
@@ -194,7 +192,4 @@ class Controller {
       },
     ]);
   };
-
-  restorePositionMap = (position) => {};
-  removePositionMap = (position) => {};
 }

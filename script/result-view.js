@@ -23,8 +23,8 @@ class ResultView {
     this.onClickResultHandler = eventHandlers["click-result"];
     this.onRemoveResultHandler = eventHandlers["remove-result"];
     this.onRestoreResultHandler = eventHandlers["restore-result"];
-    this.onRemovePosition = eventHandlers["remove-position"];
-    this.onRestorePosition = eventHandlers["restore-position"];
+    this.mapRemovePosition = eventHandlers["remove-position"];
+    this.mapRestorePosition = eventHandlers["restore-position"];
     this.onStopHandler = eventHandlers["stop-search"];
   };
 
@@ -74,13 +74,18 @@ class ResultView {
 
   _refresh = ({ container }) => {
     const target = container.filter(
-      (element) => element.valid !== this.nodes[element.id].valid
+      (element) => element.valid !== this.nodes[element.id]?.valid
     );
-    console.log(target);
-
+    const restore = [];
+    const remove = [];
     target.forEach((element) => {
-      this.nodes[element.id].update(element.valid);
+      const position = this.nodes[element.id]?.update(element.valid);
+      if (!position) return;
+      if (element.valid) restore.push(position);
+      else remove.push(position);
     });
+    if (remove.length > 0) this._map.restore(remove);
+    if (restore.length > 0) this._map.remove(restore);
   };
 
   _enqueue = ({ container }) => {
