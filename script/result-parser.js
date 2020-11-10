@@ -9,6 +9,7 @@ class ResultParser {
       snippet: element[this.prototype.snippet],
       link: element[this.prototype.link],
       thumbnail: element[this.prototype.thumbnail],
+      valid: true,
     }));
   }
 }

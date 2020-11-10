@@ -60,6 +60,8 @@ class Controller {
     if (search.length === 0) return;
 
     if (mode === "search") {
+      //검색 실행
+      this._api.startSearch(search);
       // 노드 낙하
       this._model.changeModel([
         {
@@ -73,10 +75,7 @@ class Controller {
           data: { mode: "falling" },
         },
       ]);
-
       setTimeout(() => {
-        //검색 실행
-        this._api.startSearch(search);
         //화면 변경
         this._model.changeModel([
           {

@@ -48,6 +48,7 @@ class ResultView {
   };
 
   _reset = () => {
+    this._map.reset();
     this.nodeLayer.empty();
     this.modalLayer.empty();
     this.pivot = 0;
