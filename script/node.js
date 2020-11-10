@@ -60,7 +60,9 @@ class CoffeeNode {
 
     //색상값 연결
     this.color = CoffeeNode.__indexColorPicher__(index, 15);
-    this._changeNodeColor(this.color);
+    this._changeNodeColor(
+      this.isValid ? this.color : CoffeeNode.__invalidColor__
+    );
 
     //오버레이 모달 위치
     this.modal
@@ -187,12 +189,18 @@ class CoffeeNode {
 
   _remove = () => {
     this.isValid = false;
+    this.decoration.halo
+      .addClass("effect-halo-blink")
+      .removeClass("effect-halo-runnig");
     this.modal.addClass("hide").removeClass("show");
     this._changeNodeColor(CoffeeNode.__invalidColor__);
   };
 
   _restore = () => {
     this.isValid = true;
+    this.decoration.halo
+      .addClass("effect-halo-runnig")
+      .removeClass("effect-halo-blink");
     this._changeNodeColor(this.color);
   };
 }

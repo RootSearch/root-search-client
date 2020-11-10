@@ -165,7 +165,30 @@ class Controller {
     ]);
   };
 
-  removeResultHandler = (keyword) => () => {};
+  removeResultHandler = (keyword) => () => {
+    const { container: prev } = this._model.readModel("result-view", "results");
+    const next = prev.map((element) =>
+      keyword === element.keyword ? { ...element, valid: false } : element
+    );
+    this._model.changeModel([
+      {
+        view: "result-view",
+        object: "results",
+        data: { container: next },
+      },
+    ]);
+  };
 
-  restoreResultHandler = (keyword) => () => {};
+  restoreResultHandler = (keyword) => () => {
+    const next = prev.map((element) =>
+      keyword === element.keyword ? { ...element, valid: true } : element
+    );
+    this._model.changeModel([
+      {
+        view: "result-view",
+        object: "results",
+        data: { container: next },
+      },
+    ]);
+  };
 }
