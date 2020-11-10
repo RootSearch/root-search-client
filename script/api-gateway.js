@@ -20,7 +20,7 @@ class ApiGateway {
       withCredentials: false,
     });
     this.es.onopen = (e) => {
-      console.log("open sse");
+      console.log("open sse", e);
     };
     this.es.onmessage = (e) => {
       console.log("default", JSON.parse(e.data));
@@ -33,7 +33,8 @@ class ApiGateway {
       false
     );
     this.es.onerror = (e) => {
-      console.log("error sse");
+      console.log("error sse", e);
+      this.es.close();
     };
   };
 }
