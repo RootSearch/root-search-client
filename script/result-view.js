@@ -1,5 +1,5 @@
 class ResultView {
-  static __intervalTime__ = 5000;
+  static __intervalTime__ = 200;
   constructor() {
     this.pivot = 0;
     this.isDrawing = false;
@@ -129,16 +129,12 @@ class ResultView {
       const node = new CoffeeNode(position, element, index, {
         leftClick: this.onClickResultHandler(element.link),
         remove: () => {
-          console.log("remove");
-
           this.onRemoveResultHandler(element.keyword);
           this.queue = this.queue.map((node) =>
             element.keyword === node.keyword ? { ...node, valid: false } : node
           );
         },
         restore: () => {
-          console.log("restore");
-
           this.onRestoreResultHandler(element.keyword);
           this.queue = this.queue.map((node) =>
             element.keyword === node.keyword ? { ...node, valid: true } : node
