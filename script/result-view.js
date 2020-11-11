@@ -1,5 +1,5 @@
 class ResultView {
-  static __intervalTime__ = 100;
+  static __intervalTime__ = 5000;
   constructor() {
     this.pivot = 0;
     this.isDrawing = false;
@@ -49,6 +49,9 @@ class ResultView {
       case "result-layer":
         this._clear(data);
         break;
+      case "draw-state":
+        this._changeState(data);
+        break;
       default:
     }
   };
@@ -62,10 +65,15 @@ class ResultView {
     this.pivot = 0;
   };
 
+  _changeState = ({ state }) => {
+    if (state === "running") this.intervalId = this._start(this.intervalId);
+    if (state === "pending");
+    if (state === "idle") this.intervalId = this._stop(this.intervalId);
+  };
+
   _clear = ({ mode }) => {
     if (mode === "search") {
       this._reset();
-      this.intervalId = this._stop(this.intervalId);
     }
     if (mode === "root") {
       this.intervalId = this._start(this.intervalId);
@@ -108,7 +116,8 @@ class ResultView {
   _draw = () => {
     const intervalId = setInterval(() => {
       if (this.queue.length === 0) return;
-      const element = this.queue.shift();
+      let element = this.queue.shift();
+      while (!element.valid) element = this.queue.shift();
       const [position, index] = this._map.getNextPosition();
       if (!position) {
         if (this.isDrawing) {
@@ -119,8 +128,22 @@ class ResultView {
       }
       const node = new CoffeeNode(position, element, index, {
         leftClick: this.onClickResultHandler(element.link),
-        remove: this.onRemoveResultHandler(element.keyword),
-        restore: this.onRestoreResultHandler(element.keyword),
+        remove: () => {
+          console.log("remove");
+
+          this.onRemoveResultHandler(element.keyword);
+          this.queue = this.queue.map((node) =>
+            element.keyword === node.keyword ? { ...node, valid: false } : node
+          );
+        },
+        restore: () => {
+          console.log("restore");
+
+          this.onRestoreResultHandler(element.keyword);
+          this.queue = this.queue.map((node) =>
+            element.keyword === node.keyword ? { ...node, valid: true } : node
+          );
+        },
       });
       this.nodes[element.id] = node;
     }, ResultView.__intervalTime__);

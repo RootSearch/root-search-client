@@ -96,6 +96,11 @@ class Controller {
             object: "result-layer",
             data: { mode: "root" },
           },
+          {
+            view: "result-view",
+            object: "draw-state",
+            data: { state: "running" },
+          },
         ]);
       }, 2000);
     }
@@ -124,6 +129,11 @@ class Controller {
           view: "result-view",
           object: "result-layer",
           data: { mode: "search" },
+        },
+        {
+          view: "result-view",
+          object: "draw-state",
+          data: { state: "idle" },
         },
         {
           view: "result-view",
@@ -165,7 +175,7 @@ class Controller {
     ]);
   };
 
-  removeResultHandler = (keyword) => () => {
+  removeResultHandler = (keyword) => {
     const { container: prev } = this._model.readModel("result-view", "results");
     const next = prev.map((element) =>
       keyword === element.keyword ? { ...element, valid: false } : element
@@ -179,7 +189,7 @@ class Controller {
     ]);
   };
 
-  restoreResultHandler = (keyword) => () => {
+  restoreResultHandler = (keyword) => {
     const { container: prev } = this._model.readModel("result-view", "results");
     const next = prev.map((element) =>
       keyword === element.keyword ? { ...element, valid: true } : element

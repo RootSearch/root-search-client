@@ -77,6 +77,12 @@ const viewModel = {
           mode: "search",
         },
       },
+      "draw-state": {
+        modified: false,
+        data: {
+          state: "idle",
+        },
+      },
     },
   },
 };
