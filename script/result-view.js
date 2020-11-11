@@ -11,7 +11,7 @@ class ResultView {
     );
     this.intervalId = null;
     this.queue = [];
-    this.nodes = {};
+    this.nodes = new Map();
   }
   linkObject = (view, map) => {
     this._view = view;
@@ -45,10 +45,10 @@ class ResultView {
       case "results":
         if (data.container.length === this.pivot) this._refresh(data);
         else if (data.container.length > this.pivot) this._enqueue(data);
-        else if (data.container.length < this.pivot) this._rewind(data);
+        else if (data.container.length < this.pivot) this._clean(data);
         break;
       case "result-layer":
-        this._clear(data);
+        this._changeMode(data);
         break;
       case "draw-state":
         this._changeState(data);
@@ -61,8 +61,8 @@ class ResultView {
     this._map.reset();
     this.nodeLayer.empty();
     this.modalLayer.empty();
+    this.nodes.clear();
     this.queue = [];
-    this.nodes = {};
     this.pivot = 0;
   };
 
@@ -72,23 +72,19 @@ class ResultView {
     if (state === "idle") this.intervalId = this._stop(this.intervalId);
   };
 
-  _clear = ({ mode }) => {
-    if (mode === "search") {
-      this._reset();
-    }
-    if (mode === "root") {
-      this.intervalId = this._start(this.intervalId);
-    }
+  _changeMode = ({ mode }) => {
+    if (mode === "search") this._reset();
+    if (mode === "root");
   };
 
   _refresh = ({ container }) => {
     const target = container.filter(
-      (element) => element.valid !== this.nodes[element.id]?.valid
+      (element) => element.valid !== this.nodes.get(element.id)?.valid
     );
     const restore = [];
     const remove = [];
     target.forEach((element) => {
-      const position = this.nodes[element.id]?.update(element.valid);
+      const position = this.nodes.get(element.id)?.update(element.valid);
       if (!position) return;
       if (element.valid) restore.push(position);
       else remove.push(position);
@@ -102,7 +98,12 @@ class ResultView {
     this.pivot = container.length;
   };
 
-  _rewind = ({ container }) => {
+  _clean = ({ container }) => {
+    this.nodes.forEach((node, id) => {
+      if (node.valid) return;
+      node.remove();
+      this.nodes.delete(id);
+    });
     this.pivot = container.length;
   };
 
@@ -122,7 +123,10 @@ class ResultView {
     const intervalId = setInterval(() => {
       if (this.queue.length === 0) return;
       let element = this.queue.shift();
-      while (!element.valid) element = this.queue.shift();
+      while (!element.valid) {
+        element = this.queue.shift();
+        if (!element) return;
+      }
       const [position, index] = this._map.getNextPosition();
       if (!position) {
         if (this.isDrawing) {
@@ -146,7 +150,7 @@ class ResultView {
           );
         },
       });
-      this.nodes[element.id] = node;
+      this.nodes.set(element.id, node);
     }, ResultView.__intervalTime__);
     return intervalId;
   };
