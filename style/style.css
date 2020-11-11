@@ -67,7 +67,7 @@ header > #title.root-mode {
 header > #sub-title-container {
   transform: rotateX(180deg);
   margin-bottom: 100px;
-  margin-top: -70px;
+  margin-top: -65px;
 }
 
 header > #sub-title-container.search-mode {
@@ -80,7 +80,7 @@ header > #sub-title-container.root-mode {
 
 header > #sub-title-container > #sub-title {
   font-weight: 900;
-  font-size: 128px;
+  font-size: 127px;
   text-align: center;
   text-shadow: 0 0 3px #dbc1ac;
   color: #967259;
