@@ -44,7 +44,8 @@ class ResultView {
     switch (name) {
       case "results":
         if (data.container.length === this.pivot) this._refresh(data);
-        else this._enqueue(data);
+        else if (data.container.length > this.pivot) this._enqueue(data);
+        else if (data.container.length < this.pivot) this._rewind(data);
         break;
       case "result-layer":
         this._clear(data);
@@ -98,6 +99,10 @@ class ResultView {
 
   _enqueue = ({ container }) => {
     this.queue = this.queue.concat(container.slice(this.pivot));
+    this.pivot = container.length;
+  };
+
+  _rewind = ({ container }) => {
     this.pivot = container.length;
   };
 

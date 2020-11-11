@@ -1,4 +1,5 @@
 class Controller {
+  static __gc_interval_time__ = 10000;
   constructor() {}
   linkObject = (model, view, api, parser) => {
     this._model = model;
@@ -37,6 +38,16 @@ class Controller {
     }
   };
 
+  _startGC = (intervalId) => {
+    if (intervalId) return;
+    return setInterval(this.garbageCollection, Controller.__gc_interval_time__);
+  };
+
+  _stopGC = (intervalId) => {
+    if (intervalId) clearInterval(intervalId);
+    return 0;
+  };
+
   /**
    *  [
    *   {view : <view name>, object : <object name>, data : <new data>},
@@ -65,6 +76,8 @@ class Controller {
     if (mode === "search") {
       //검색 실행
       this._api.startSearch(search);
+      //gc 시작
+      this.intervalId = this._startGC(this.intervalId);
       // 노드 낙하
       this._model.changeModel([
         {
@@ -108,6 +121,8 @@ class Controller {
     if (mode === "root") {
       //검색 종료
       this._api.stopSearch();
+      //gc 종료
+      this.intervalId = this._stopGC(this.intervalId);
       //화면 복귀
       this._model.changeModel([
         {
@@ -171,6 +186,20 @@ class Controller {
         view: "dynamic-view",
         object: "center-button",
         data: { mode: "end" },
+      },
+    ]);
+  };
+
+  garbageCollection = () => {
+    const { container: prev } = this._model.readModel("result-view", "results");
+    if (prev.length === 0) return;
+    const next = prev.filter((element) => element.valid);
+    if (prev.length === next.length) return;
+    this._model.changeModel([
+      {
+        view: "result-view",
+        object: "results",
+        data: { container: next },
       },
     ]);
   };
