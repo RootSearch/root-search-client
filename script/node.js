@@ -24,7 +24,7 @@ class CoffeeNode {
                 </div>
             </div>`;
   static __size__ = 20;
-  static __lifetime__ = 5000;
+  static __lifetime__ = 1500;
 
   static __positionColorPicker__ = (top, left, max) => {
     let [y, x] = [top / 70, left / 100];

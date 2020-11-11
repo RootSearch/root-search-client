@@ -1,5 +1,5 @@
 class Controller {
-  static __gc_interval_time__ = 10000;
+  static __gc_interval_time__ = 3000;
   constructor() {}
   linkObject = (model, view, api, parser) => {
     this._model = model;
@@ -37,7 +37,7 @@ class Controller {
       }
     }
   };
-
+  //FIXME: remove call을 노드까지 전달하는게 좋지 않을까.
   _startGC = (intervalId) => {
     if (intervalId) return;
     return setInterval(this.garbageCollection, Controller.__gc_interval_time__);
@@ -194,6 +194,7 @@ class Controller {
     const { container: prev } = this._model.readModel("result-view", "results");
     if (prev.length === 0) return;
     const next = prev.filter((element) => element.valid);
+    console.log(prev, next);
     if (prev.length === next.length) return;
     this._model.changeModel([
       {
