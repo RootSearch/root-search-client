@@ -51,7 +51,6 @@ header > #title {
   color: #38220f;
   font-weight: 900;
   line-height: 1;
-  transform: rotateX(180deg);
 }
 
 header > #title.search-mode {
@@ -66,8 +65,9 @@ header > #title.root-mode {
 }
 
 header > #sub-title-container {
+  transform: rotateX(180deg);
   margin-bottom: 100px;
-  margin-top: -80px;
+  margin-top: -70px;
 }
 
 header > #sub-title-container.search-mode {
@@ -80,12 +80,12 @@ header > #sub-title-container.root-mode {
 
 header > #sub-title-container > #sub-title {
   font-weight: 900;
-  font-size: 125px;
-  font-weight: bold;
+  font-size: 128px;
   text-align: center;
   text-shadow: 0 0 3px #dbc1ac;
   color: #967259;
-  transform: perspective(800px) rotateX(60deg);
+  /* color: linear-gradient(#967259ff, #96725975); */
+  transform: perspective(800px) rotateX(-60deg);
 }
 input::-moz-selection,
 div::-moz-selection {

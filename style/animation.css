@@ -55,13 +55,13 @@
 
 @keyframes shadow {
   0% {
-    opacity: 0.75;
+    opacity: 0.65;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.35;
   }
   100% {
-    opacity: 0.75;
+    opacity: 0.65;
   }
 }
 

@@ -1,6 +1,5 @@
 $(document).ready(() => {
   const model = new Model(viewModel);
-
   const view = new View();
   const controller = new Controller();
   const base = new BaseView();
