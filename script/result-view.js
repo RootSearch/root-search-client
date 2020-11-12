@@ -112,6 +112,7 @@ class ResultView {
     this.isDrawing = true;
     return this._draw();
   };
+
   _stop = (intervalId) => {
     if (!intervalId) return;
     this.isDrawing = false;

@@ -1,5 +1,5 @@
 class Controller {
-  static __gc_interval_time__ = 5000;
+  static __gc_interval_time__ = 30000;
   constructor() {}
   linkObject = (model, view, api, parser) => {
     this._model = model;
