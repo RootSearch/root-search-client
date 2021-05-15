@@ -1,8 +1,10 @@
 class ApiGateway {
-  static __server_path__ = "https://3.36.161.208:5001/search";
+  static __server_path__ = "https://rootsearch.vumigration.com:5001/search";
+
   linkObject = (controller) => {
     this._controller = controller;
   };
+
   constructor() {
     this.eventSource = undefined;
   }
