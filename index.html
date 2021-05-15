@@ -1,65 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'" />
+    <meta name="theme-color" content="#ece0d1" />
+    <link rel="shortcut icon" href="style//resources/icons//rootsearch.png" />
+    <link rel="stylesheet" href="style//style.css" />
+    <link rel="stylesheet" href="style//animation.css" />
+    <script src="modules//jquery-3.4.1.min.js"></script>
+    <script src="script//model.js"></script>
+    <script src="script//view.js"></script>
+    <script src="script//controller.js"></script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style//style.css" />
-  <link rel="stylesheet" href="style//animation.css" />
-  <script src="modules//jquery-3.4.1.min.js"></script>
-  <script src="script//model.js"></script>
-  <script src="script//view.js"></script>
-  <script src="script//controller.js"></script>
+    <script src="script//api-gateway.js"></script>
+    <script src="script//result-parser.js"></script>
 
-  <script src="script//api-gateway.js"></script>
-  <script src="script//result-parser.js"></script>
+    <script src="script//node.js"></script>
+    <script src="script//node-map.js"></script>
 
-  <script src="script//node.js"></script>
-  <script src="script//node-map.js"></script>
+    <script src="script//base-view.js"></script>
+    <script src="script//dynamic-view.js"></script>
+    <script src="script//result-view.js"></script>
 
-  <script src="script//base-view.js"></script>
-  <script src="script//dynamic-view.js"></script>
-  <script src="script//result-view.js"></script>
+    <script src="script//main.js"></script>
+    <title>Root Search</title>
+  </head>
 
-  <script src="script//main.js"></script>
-  <title>Root Search</title>
-</head>
+  <body class="dynamic-view search-mode">
+    <header class="dynamic-view search-mode">
+      <div id="title" class="dynamic-view search-mode">ROOT SEARCH</div>
+      <div id="sub-title-container" class="dynamic-view search-mode">
+        <div id="sub-title" class="dynamic-view animation-shadow">
+          ROOT SEARCH
+        </div>
+      </div>
+    </header>
 
-<body class="dynamic-view search-mode">
-  <header class="dynamic-view search-mode">
-    <div id="title" class="dynamic-view search-mode">ROOT SEARCH</div>
-    <div id="sub-title-container" class="dynamic-view search-mode">
-      <div id="sub-title" class="dynamic-view animation-shadow">ROOT SEARCH</div>
-    </div>
-  </header>
-
-  <div id="search-context" class="dynamic-view search-mode">
-    <div id="search-container">
-      <input type="text" id="search-bar" class="interaction-view" placeholder="Do Search!" />
-    </div>
-  </div>
-
-  <div id="root-context" class="dynamic-view search-mode">
-    <div class="node-container root default">
-      <span class="effect-halo effect-halo-blink"></span>
-      <span class="effect-halo effect-halo-blink"></span>
-      <span class="node-core interaction-view">
-        <img class="core-image coffee-bean animation-dom" alt="" />
-      </span>
-    </div>
-    <div id="result-container" class="dynamic-view search-mode">
-      <div id="result-body" class="dynamic-view search-mode interaction-view">
-        <img id="result-background" src="./style/resources/images/root.png" alt="">
-        <div id="node-layer"></div>
-        <div id="modal-layer"></div>
+    <div id="search-context" class="dynamic-view search-mode">
+      <div id="search-container">
+        <input
+          type="text"
+          id="search-bar"
+          class="interaction-view"
+          placeholder="Do Search!"
+        />
       </div>
     </div>
-  </div>
 
-  <div id="overlay" class="overlay"></div>
-  <footer>
+    <div id="root-context" class="dynamic-view search-mode">
+      <div class="node-container root default">
+        <span class="effect-halo effect-halo-blink"></span>
+        <span class="effect-halo effect-halo-blink"></span>
+        <span class="node-core interaction-view">
+          <img class="core-image coffee-bean animation-dom" alt="" />
+        </span>
+      </div>
+      <div id="result-container" class="dynamic-view search-mode">
+        <div id="result-body" class="dynamic-view search-mode interaction-view">
+          <img
+            id="result-background"
+            src="./style/resources/images/root.png"
+            alt=""
+          />
+          <div id="node-layer"></div>
+          <div id="modal-layer"></div>
+        </div>
+      </div>
+    </div>
 
-  </footer>
-</body>
-
+    <div id="overlay" class="overlay"></div>
+    <footer></footer>
+  </body>
 </html>
