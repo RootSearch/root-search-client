@@ -160,11 +160,15 @@ class CoffeeNode {
     this.context.title.text(
       data.title.length > 46 ? data.title.slice(0, 45) + "..." : data.title
     );
-    this.context.snippet.text(
-      data.snippet.length > 166
-        ? data.snippet.slice(0, 165) + " ..."
-        : data.snippet
-    );
+
+    if (data.snippet !== null) {
+      this.context.snippet.text(
+        data.snippet.length > 166
+          ? data.snippet.slice(0, 165) + " ..."
+          : data.snippet
+      );
+    } else this.context.snippet.text(data.title);
+
     if (data.thumbnail !== null)
       this.context.thumbnail.attr("src", data.thumbnail);
   };
