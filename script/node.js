@@ -24,7 +24,7 @@ class CoffeeNode {
                 </div>
             </div>`;
   static __size__ = 20;
-  // static __lifetime__ = 3000;
+  static __lifetime__ = 3500;
 
   static __positionColorPicker__ = (top, left, max) => {
     let [y, x] = [top / 70, left / 100];
@@ -215,7 +215,7 @@ class CoffeeNode {
     this._changeNodeColor(CoffeeNode.__invalidColor__);
 
     //FIXME: 이 부분은 지금 노드를 본인이 스스로 삭제하고있음.
-    // this.lifetime = setTimeout(this.remove, CoffeeNode.__lifetime__);
+    this.lifetime = setTimeout(this.remove, CoffeeNode.__lifetime__);
   };
 
   _restore = () => {
@@ -225,6 +225,6 @@ class CoffeeNode {
     this._changeNodeColor(this.color);
 
     //FIXME: 삭제를 취소하는 부분
-    // clearTimeout(this.lifetime);
+    clearTimeout(this.lifetime);
   };
 }
