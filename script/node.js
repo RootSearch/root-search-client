@@ -214,7 +214,7 @@ class CoffeeNode {
     this.modal.addClass("hide").removeClass("show");
     this._changeNodeColor(CoffeeNode.__invalidColor__);
 
-    //FIXME: 이 부분은 지금 노드를 본인이 스스로 삭제하고있음.
+    //INFO: 이 부분은 지금 노드를 본인이 스스로 삭제하고있음.
     this.lifetime = setTimeout(this.remove, CoffeeNode.__lifetime__);
   };
 
@@ -224,7 +224,7 @@ class CoffeeNode {
       .removeClass("effect-halo-blink");
     this._changeNodeColor(this.color);
 
-    //FIXME: 삭제를 취소하는 부분
+    //INFO: 삭제를 취소하는 부분
     clearTimeout(this.lifetime);
   };
 }
