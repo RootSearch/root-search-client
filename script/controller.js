@@ -84,9 +84,11 @@ class Controller {
     if (mode === "search") {
       //검색 실행
       this._api.startSearch(search);
+
+      //WARN: gc 에러가 존재함 사용 금지
       //gc 시작
-      //gc 에러가 존재함 사용 금지
       // this.intervalId = this._startGC(this.intervalId);
+
       // 노드 낙하
       this._model.changeModel([
         {
@@ -130,8 +132,11 @@ class Controller {
     if (mode === "root") {
       //검색 종료
       this._api.stopSearch();
+
+      //WARN: gc 에러가 존재함 사용 금지
       //gc 종료
       // this.intervalId = this._stopGC(this.intervalId);
+
       //화면 복귀
       this._model.changeModel([
         {
@@ -227,8 +232,12 @@ class Controller {
     ]);
   };
 
-  requestDeleteHandler = (keyword) => {
-    this._api.removeKeyword(keyword);
+  requestDeleteHandler = (blockKeyword) => {
+    const { search: searchKeyword } = this._model.readModel(
+      "dynamic-view",
+      "search-bar"
+    );
+    this._api.removeKeyword(searchKeyword, blockKeyword);
   };
 
   restoreResultHandler = (keyword) => {
