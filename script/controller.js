@@ -37,6 +37,7 @@ class Controller {
       }
     }
   };
+
   //FIXME: remove call을 노드까지 전달하는게 좋지 않을까.
   _startGC = (intervalId) => {
     if (intervalId) return;
@@ -77,7 +78,8 @@ class Controller {
       //검색 실행
       this._api.startSearch(search);
       //gc 시작
-      this.intervalId = this._startGC(this.intervalId);
+      //gc 에러가 존재함 사용 금지
+      // this.intervalId = this._startGC(this.intervalId);
       // 노드 낙하
       this._model.changeModel([
         {
@@ -122,7 +124,7 @@ class Controller {
       //검색 종료
       this._api.stopSearch();
       //gc 종료
-      this.intervalId = this._stopGC(this.intervalId);
+      // this.intervalId = this._stopGC(this.intervalId);
       //화면 복귀
       this._model.changeModel([
         {
