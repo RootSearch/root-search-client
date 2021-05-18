@@ -1,6 +1,7 @@
 class ApiGateway {
   static __server_path__ = "https://rootsearch.vumigration.com:5001";
   static __search__ = "/search";
+  static __block__ = "/block";
 
   linkObject = (controller) => {
     this._controller = controller;
@@ -33,23 +34,36 @@ class ApiGateway {
     this.eventSource = undefined;
   };
 
-  removeKeyword = (target) => {
+  removeKeyword = (searchKeyword, blockKeyword) => {
     const httpsRequest = new XMLHttpRequest();
+
     if (!httpsRequest) {
       console.log("Fail to Create XMLHTTP Instance!");
       return;
     }
+
     httpsRequest.onreadystatechange = () => {
-      if (httpsRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpsRequest.status === 200) this._delete();
-        else this._error(httpsRequest.responseText);
+      try {
+        if (httpsRequest.readyState === XMLHttpRequest.DONE) {
+          if (httpsRequest.status === 200) this._delete();
+          else this._error(httpsRequest.responseText);
+        }
+      } catch (e) {
+        console.log(e);
       }
     };
+
     httpsRequest.open(
-      "DELETE",
-      `${ApiGateway.__server_path__}${ApiGateway.__search__}/${target}`
+      "PUT",
+      `${ApiGateway.__server_path__}${ApiGateway.__search__}${ApiGateway.__block__}`
     );
-    httpsRequest.send();
+
+    httpsRequest.setRequestHeader(
+      "Content-Type",
+      "application/json; charset=utf-8"
+    );
+
+    httpsRequest.send(JSON.stringify({ searchKeyword, blockKeyword }));
   };
 
   _open = (e) => {
