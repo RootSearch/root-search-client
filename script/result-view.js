@@ -1,6 +1,6 @@
 class ResultView {
   static __intervalTime__ = 200;
-  static __restoreTime__ = 3500;
+  static __restoreTime__ = 2500;
   constructor() {
     this.pivot = 0;
     this.isDrawing = false;
