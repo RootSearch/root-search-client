@@ -67,7 +67,7 @@ class ApiGateway {
   };
 
   _open = (e) => {
-    console.log(e);
+    console.log("Start Search");
   };
 
   _pending = (e) => {
