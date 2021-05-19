@@ -159,8 +159,8 @@ div::selection {
 
 #root-context > #result-container > #result-body {
   position: relative;
-  height: 900px;
-  width: 1024px;
+  height: 92.5vh;
+  width: 110vh;
   z-index: -1;
 }
 
@@ -171,7 +171,7 @@ div::selection {
 
 #root-context > #result-container > #result-body.root-mode {
   display: inline-block;
-  margin-left: calc(50% - 512px);
+  margin-left: calc(50% - 55vh);
   pointer-events: all;
 }
 
