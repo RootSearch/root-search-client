@@ -1,8 +1,3 @@
-#text-input {
-  height: 200px;
-  width: 50%;
-}
-
 html,
 body {
   pointer-events: none;
@@ -60,19 +55,19 @@ header > #title {
 
 header > #title.search-mode {
   text-align: center;
-  font-size: 120px;
+  font-size: 7.1vw;
 }
 
 header > #title.root-mode {
   text-align: left;
-  font-size: 50px;
-  margin-left: 75px;
+  font-size: 3.25vw;
+  margin-left: 3.25vw;
 }
 
 header > #sub-title-container {
   transform: rotateX(180deg);
-  margin-bottom: 100px;
-  margin-top: -65px;
+  margin-bottom: 5vw;
+  margin-top: -3.65vw;
 }
 
 header > #sub-title-container.search-mode {
@@ -85,7 +80,7 @@ header > #sub-title-container.root-mode {
 
 header > #sub-title-container > #sub-title {
   font-weight: 900;
-  font-size: 127px;
+  font-size: 7.45vw;
   text-align: center;
   text-shadow: 0 0 3px #dbc1ac;
   color: #967259;
@@ -112,8 +107,8 @@ div::selection {
   margin-top: 0px;
 }
 #search-context.dynamic-view.root-mode {
-  margin-top: -46px;
-  margin-bottom: 25px;
+  margin-top: -6.15vh;
+  margin-bottom: 1vh;
 }
 
 #search-context > #search-container {
@@ -123,9 +118,9 @@ div::selection {
 #search-context > #search-container > #search-bar {
   color: inherit;
   width: 35%;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 30px;
+  padding-left: 0.75vw;
+  padding-right: 0.75vw;
+  font-size: 4.35vh;
   font-weight: 600;
 }
 
@@ -208,8 +203,8 @@ div::selection {
   position: relative !important;
   margin: 0 auto;
   margin-top: 1%;
-  width: 100px;
-  height: 100px;
+  width: 7.5vw;
+  height: 7.5vw;
   transition-duration: 0.25s;
 }
 
@@ -228,8 +223,8 @@ div::selection {
   > .node-container {
   position: absolute;
   z-index: 0;
-  width: 40px;
-  height: 40px;
+  width: 3vw;
+  height: 3vw;
   display: flex;
   align-items: center;
 }
@@ -330,8 +325,8 @@ div::selection {
   > .result-preview {
   position: absolute;
   pointer-events: none;
-  height: 40px;
-  width: 40px;
+  height: 3vw;
+  width: 3vw;
 }
 
 #root-context
