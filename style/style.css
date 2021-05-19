@@ -67,7 +67,7 @@ header > #title.root-mode {
 header > #sub-title-container {
   transform: rotateX(180deg);
   margin-bottom: 5vw;
-  margin-top: -3.65vw;
+  margin-top: -3.75vw;
 }
 
 header > #sub-title-container.search-mode {
@@ -80,12 +80,12 @@ header > #sub-title-container.root-mode {
 
 header > #sub-title-container > #sub-title {
   font-weight: 900;
-  font-size: 7.45vw;
+  font-size: 7.625vw;
   text-align: center;
   text-shadow: 0 0 3px #dbc1ac;
   color: #967259;
   /* color: linear-gradient(#967259ff, #96725975); */
-  transform: perspective(800px) rotateX(-60deg);
+  transform: perspective(40vw) rotateX(-60deg);
 }
 input::-moz-selection,
 div::-moz-selection {
@@ -107,7 +107,7 @@ div::selection {
   margin-top: 0px;
 }
 #search-context.dynamic-view.root-mode {
-  margin-top: -6.15vh;
+  margin-top: -5.75vh;
   margin-bottom: 1vh;
 }
 
@@ -132,11 +132,11 @@ div::selection {
 }
 
 #root-context.search-mode {
-  height: 40%;
+  height: 35vh;
 }
 
 #root-context.root-mode {
-  height: 95%;
+  height: 95vh;
 }
 
 #root-context > #result-container {
@@ -202,14 +202,14 @@ div::selection {
 #root-context > .node-container.root {
   position: relative !important;
   margin: 0 auto;
-  margin-top: 1%;
-  width: 7.5vw;
-  height: 7.5vw;
+  margin-top: 2vh;
+  width: 6vw;
+  height: 6vw;
   transition-duration: 0.25s;
 }
 
 #root-context > .node-container.root.fall-down {
-  margin-top: 12.5%;
+  margin-top: 20vh;
   transform: rotate(90deg);
   transition-duration: 1.5s;
   transition-timing-function: ease-in;
