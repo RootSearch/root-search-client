@@ -142,6 +142,7 @@ class ResultView {
       setTimeout(() => {
         this.keywordGroups.get(keyword).forEach((node) => node.remove());
         this.keywordGroups.delete(keyword);
+        this.removeNodes.delete(keyword);
         this.requestDeleteHandler(keyword);
       }, ResultView.__restoreTime__)
     );
