@@ -17,6 +17,7 @@ class Controller {
       "result-view": {
         "click-result": this.onClickResultHandler,
         "remove-result": this.removeResultHandler,
+        "request-delete": this.requestDeleteHandler,
         "restore-result": this.restoreResultHandler,
         "stop-search": this.stopSearchHandler,
       },
@@ -25,6 +26,7 @@ class Controller {
       pending: (e) => console.log(e),
       success: this.onReceiveHandler,
       error: (e) => console.log(e),
+      delete: this.onDeleteHandler,
     });
   };
 
@@ -37,6 +39,7 @@ class Controller {
       }
     }
   };
+
   //FIXME: remove call을 노드까지 전달하는게 좋지 않을까.
   _startGC = (intervalId) => {
     if (intervalId) return;
@@ -46,6 +49,11 @@ class Controller {
   _stopGC = (intervalId) => {
     if (intervalId) clearInterval(intervalId);
     return 0;
+  };
+
+  // INFO: 삭제 요청에 성공할 때마다 GC를 수행하도록 하자
+  onDeleteHandler = () => {
+    this.garbageCollection();
   };
 
   /**
@@ -76,8 +84,11 @@ class Controller {
     if (mode === "search") {
       //검색 실행
       this._api.startSearch(search);
+
+      //WARN: gc 에러가 존재함 사용 금지
       //gc 시작
-      this.intervalId = this._startGC(this.intervalId);
+      // this.intervalId = this._startGC(this.intervalId);
+
       // 노드 낙하
       this._model.changeModel([
         {
@@ -121,8 +132,11 @@ class Controller {
     if (mode === "root") {
       //검색 종료
       this._api.stopSearch();
+
+      //WARN: gc 에러가 존재함 사용 금지
       //gc 종료
-      this.intervalId = this._stopGC(this.intervalId);
+      // this.intervalId = this._stopGC(this.intervalId);
+
       //화면 복귀
       this._model.changeModel([
         {
@@ -216,6 +230,14 @@ class Controller {
         data: { container: next },
       },
     ]);
+  };
+
+  requestDeleteHandler = (blockKeyword) => {
+    const { search: searchKeyword } = this._model.readModel(
+      "dynamic-view",
+      "search-bar"
+    );
+    this._api.removeKeyword(searchKeyword, blockKeyword);
   };
 
   restoreResultHandler = (keyword) => {

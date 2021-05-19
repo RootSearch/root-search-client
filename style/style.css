@@ -1,7 +1,3 @@
-#text-input {
-  height: 200px;
-  width: 50%;
-}
 html,
 body {
   pointer-events: none;
@@ -11,14 +7,17 @@ body {
   overflow: hidden;
   height: 100vh;
 }
+
 input {
   background-color: #00000000;
   border: none;
   border-bottom: #38220f 3px solid;
 }
+
 input:focus {
   outline: none;
 }
+
 img,
 div {
   -ms-user-select: none;
@@ -42,6 +41,7 @@ body {
 header.search-mode {
   padding-top: 10%;
 }
+
 header.root-mode {
   padding-top: 0;
   background-color: #ece0d1;
@@ -55,19 +55,19 @@ header > #title {
 
 header > #title.search-mode {
   text-align: center;
-  font-size: 120px;
+  font-size: 7.1vw;
 }
 
 header > #title.root-mode {
   text-align: left;
-  font-size: 50px;
-  margin-left: 75px;
+  font-size: 3.25vw;
+  margin-left: 3.25vw;
 }
 
 header > #sub-title-container {
   transform: rotateX(180deg);
-  margin-bottom: 100px;
-  margin-top: -65px;
+  margin-bottom: 5vw;
+  margin-top: -3.75vw;
 }
 
 header > #sub-title-container.search-mode {
@@ -80,12 +80,12 @@ header > #sub-title-container.root-mode {
 
 header > #sub-title-container > #sub-title {
   font-weight: 900;
-  font-size: 127px;
+  font-size: 7.625vw;
   text-align: center;
   text-shadow: 0 0 3px #dbc1ac;
   color: #967259;
   /* color: linear-gradient(#967259ff, #96725975); */
-  transform: perspective(800px) rotateX(-60deg);
+  transform: perspective(40vw) rotateX(-60deg);
 }
 input::-moz-selection,
 div::-moz-selection {
@@ -107,33 +107,36 @@ div::selection {
   margin-top: 0px;
 }
 #search-context.dynamic-view.root-mode {
-  margin-top: -46px;
-  margin-bottom: 25px;
+  margin-top: -5.75vh;
+  margin-bottom: 1vh;
 }
 
 #search-context > #search-container {
   text-align: center;
 }
+
 #search-context > #search-container > #search-bar {
   color: inherit;
   width: 35%;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 30px;
+  padding-left: 0.75vw;
+  padding-right: 0.75vw;
+  font-size: 4.35vh;
   font-weight: 600;
 }
+
 #root-context {
   position: absolute;
   bottom: 0;
   right: 0;
   left: 0;
 }
+
 #root-context.search-mode {
-  height: 40%;
+  height: 35vh;
 }
 
 #root-context.root-mode {
-  height: 95%;
+  height: 95vh;
 }
 
 #root-context > #result-container {
@@ -145,6 +148,7 @@ div::selection {
   background-color: #38220f;
   transition: all 0.25s ease;
 }
+
 #root-context > #result-container.search-mode {
   height: 50%;
 }
@@ -152,10 +156,11 @@ div::selection {
 #root-context > #result-container.root-mode {
   height: 100%;
 }
+
 #root-context > #result-container > #result-body {
   position: relative;
-  height: 900px;
-  width: 1024px;
+  height: 92.5vh;
+  width: 110vh;
   z-index: -1;
 }
 
@@ -166,9 +171,10 @@ div::selection {
 
 #root-context > #result-container > #result-body.root-mode {
   display: inline-block;
-  margin-left: calc(50% - 512px);
+  margin-left: calc(50% - 55vh);
   pointer-events: all;
 }
+
 #root-context > #result-container > #result-body > #node-layer,
 #root-context > #result-container > #result-body > #modal-layer,
 #root-context > #result-container > #result-body > #result-background {
@@ -179,9 +185,11 @@ div::selection {
   width: 100%;
   height: 100%;
 }
+
 #root-context > #result-container > #result-body > #node-layer {
   z-index: 0;
 }
+
 #root-context > #result-container > #result-body > #modal-layer {
   z-index: 9999;
 }
@@ -194,14 +202,14 @@ div::selection {
 #root-context > .node-container.root {
   position: relative !important;
   margin: 0 auto;
-  margin-top: 1%;
-  width: 100px;
-  height: 100px;
+  margin-top: 2vh;
+  width: 6vw;
+  height: 6vw;
   transition-duration: 0.25s;
 }
 
 #root-context > .node-container.root.fall-down {
-  margin-top: 12.5%;
+  margin-top: 20vh;
   transform: rotate(90deg);
   transition-duration: 1.5s;
   transition-timing-function: ease-in;
@@ -215,8 +223,8 @@ div::selection {
   > .node-container {
   position: absolute;
   z-index: 0;
-  width: 40px;
-  height: 40px;
+  width: 3vw;
+  height: 3vw;
   display: flex;
   align-items: center;
 }
@@ -238,6 +246,7 @@ div::selection {
   background-color: #967259;
   border-radius: 50%;
 }
+
 #root-context > .node-container > .node-core,
 #root-context
   > #result-container
@@ -316,8 +325,8 @@ div::selection {
   > .result-preview {
   position: absolute;
   pointer-events: none;
-  height: 40px;
-  width: 40px;
+  height: 3vw;
+  width: 3vw;
 }
 
 #root-context
@@ -494,6 +503,7 @@ div::selection {
   top: -45px;
   left: -60px;
 }
+
 #overlay > #text-box > #close-icon {
   position: absolute;
   height: 75px;
@@ -501,12 +511,14 @@ div::selection {
   top: -30px;
   left: calc(100% - 50px);
 }
+
 #overlay > #text-box > #title {
   text-align: center;
   color: #d55c5a;
   font-size: 20px;
   font-weight: bold;
 }
+
 #overlay > #text-box > #text-input {
   resize: none;
   margin-top: 10px;
@@ -559,9 +571,11 @@ div::selection {
   font-size: 20px;
   color: black;
 }
+
 #overlay > #item-box > label > .item > .pin > .pin-num:nth-of-type(1) {
   margin-top: 10%;
 }
+
 #overlay > #item-box > label > .item > .pin > .pin-num:nth-of-type(2) {
   margin-top: 5px;
 }

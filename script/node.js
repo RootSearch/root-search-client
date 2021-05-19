@@ -24,7 +24,7 @@ class CoffeeNode {
                 </div>
             </div>`;
   static __size__ = 20;
-  // static __lifetime__ = 3000;
+  // static __lifetime__ = 3500;
 
   static __positionColorPicker__ = (top, left, max) => {
     let [y, x] = [top / 70, left / 100];
@@ -160,11 +160,15 @@ class CoffeeNode {
     this.context.title.text(
       data.title.length > 46 ? data.title.slice(0, 45) + "..." : data.title
     );
-    this.context.snippet.text(
-      data.snippet.length > 166
-        ? data.snippet.slice(0, 165) + " ..."
-        : data.snippet
-    );
+
+    if (data.snippet !== null) {
+      this.context.snippet.text(
+        data.snippet.length > 166
+          ? data.snippet.slice(0, 165) + " ..."
+          : data.snippet
+      );
+    } else this.context.snippet.text(data.title);
+
     if (data.thumbnail !== null)
       this.context.thumbnail.attr("src", data.thumbnail);
   };
@@ -210,7 +214,7 @@ class CoffeeNode {
     this.modal.addClass("hide").removeClass("show");
     this._changeNodeColor(CoffeeNode.__invalidColor__);
 
-    //FIXME: 이 부분은 지금 노드를 본인이 스스로 삭제하고있음.
+    //FIXME: 이 부분은 지금 노드를 본인이 스스로 삭제하고있음. 낭비 발생.
     // this.lifetime = setTimeout(this.remove, CoffeeNode.__lifetime__);
   };
 

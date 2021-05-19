@@ -1,5 +1,6 @@
 class ResultView {
   static __intervalTime__ = 200;
+  static __restoreTime__ = 2500;
   constructor() {
     this.pivot = 0;
     this.isDrawing = false;
@@ -12,6 +13,8 @@ class ResultView {
     this.intervalId = null;
     this.queue = [];
     this.nodes = new Map();
+    this.keywordGroups = new Map();
+    this.removeNodes = new Map();
   }
   linkObject = (view, map) => {
     this._view = view;
@@ -26,6 +29,7 @@ class ResultView {
     this.mapRemovePosition = eventHandlers["remove-position"];
     this.mapRestorePosition = eventHandlers["restore-position"];
     this.onStopHandler = eventHandlers["stop-search"];
+    this.requestDeleteHandler = eventHandlers["request-delete"];
   };
 
   update = (data) => {
@@ -62,6 +66,9 @@ class ResultView {
     this.nodeLayer.empty();
     this.modalLayer.empty();
     this.nodes.clear();
+    this.keywordGroups.clear();
+    this.removeNodes.forEach((intervalId) => clearInterval(intervalId));
+    this.removeNodes.clear();
     this.queue = [];
     this.pivot = 0;
   };
@@ -120,6 +127,43 @@ class ResultView {
     return null;
   };
 
+  _removeNodes = (keyword) => {
+    // do this function just one time for each keywords
+    if (this.removeNodes.has(keyword)) return;
+
+    // pre remove nodes by keywords
+    this.onRemoveResultHandler(keyword);
+    this.queue = this.queue.map((node) =>
+      keyword === node.keyword ? { ...node, valid: false } : node
+    );
+
+    // ready to delete request
+    this.removeNodes.set(
+      keyword,
+      setTimeout(() => {
+        this.keywordGroups.get(keyword).forEach((node) => node.remove());
+        this.keywordGroups.delete(keyword);
+        this.removeNodes.delete(keyword);
+        this.requestDeleteHandler(keyword);
+      }, ResultView.__restoreTime__)
+    );
+  };
+
+  _restoreNodes = (keyword) => {
+    // do this function just one time for each keywords
+    if (!this.removeNodes.has(keyword)) return;
+
+    // restore reomved nodes
+    this.onRestoreResultHandler(keyword);
+    this.queue = this.queue.map((node) =>
+      keyword === node.keyword ? { ...node, valid: true } : node
+    );
+
+    // cancle delete request
+    clearInterval(this.removeNodes.get(keyword));
+    this.removeNodes.delete(keyword);
+  };
+
   _draw = () => {
     const intervalId = setInterval(() => {
       if (this.queue.length === 0) return;
@@ -138,20 +182,13 @@ class ResultView {
       }
       const node = new CoffeeNode(position, element, index, {
         leftClick: this.onClickResultHandler(element.link),
-        remove: () => {
-          this.onRemoveResultHandler(element.keyword);
-          this.queue = this.queue.map((node) =>
-            element.keyword === node.keyword ? { ...node, valid: false } : node
-          );
-        },
-        restore: () => {
-          this.onRestoreResultHandler(element.keyword);
-          this.queue = this.queue.map((node) =>
-            element.keyword === node.keyword ? { ...node, valid: true } : node
-          );
-        },
+        remove: () => this._removeNodes(element.keyword),
+        restore: () => this._restoreNodes(element.keyword),
       });
       this.nodes.set(element.id, node);
+      if (this.keywordGroups.has(element.keyword))
+        this.keywordGroups.get(element.keyword).push(node);
+      else this.keywordGroups.set(element.keyword, [node]);
     }, ResultView.__intervalTime__);
     return intervalId;
   };

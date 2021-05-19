@@ -1,8 +1,12 @@
 class ApiGateway {
-  static __server_path__ = "https://3.36.161.208:5001/search";
+  static __server_path__ = "https://rootsearch.vumigration.com:5001";
+  static __search__ = "/search";
+  static __block__ = "/block";
+
   linkObject = (controller) => {
     this._controller = controller;
   };
+
   constructor() {
     this.eventSource = undefined;
   }
@@ -11,10 +15,11 @@ class ApiGateway {
     this.onPendingHandler = eventHandlers["pending"];
     this.onSuccessHandler = eventHandlers["success"];
     this.onErrorHandler = eventHandlers["error"];
+    this.onDeleteHandler = eventHandlers["delete"];
   };
 
-  startSearch = (targer) => {
-    this.eventSource = this._createEventSource(this.eventSource, targer);
+  startSearch = (target) => {
+    this.eventSource = this._createEventSource(this.eventSource, target);
     this._addEventHandler(this.eventSource, {
       open: this._open,
       pending: this._pending,
@@ -29,8 +34,40 @@ class ApiGateway {
     this.eventSource = undefined;
   };
 
+  removeKeyword = (searchKeyword, blockKeyword) => {
+    const httpsRequest = new XMLHttpRequest();
+
+    if (!httpsRequest) {
+      console.log("Fail to Create XMLHTTP Instance!");
+      return;
+    }
+
+    httpsRequest.onreadystatechange = () => {
+      try {
+        if (httpsRequest.readyState === XMLHttpRequest.DONE) {
+          if (httpsRequest.status === 200) this._delete();
+          else this._error(httpsRequest.responseText);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    httpsRequest.open(
+      "PUT",
+      `${ApiGateway.__server_path__}${ApiGateway.__search__}${ApiGateway.__block__}`
+    );
+
+    httpsRequest.setRequestHeader(
+      "Content-Type",
+      "application/json; charset=utf-8"
+    );
+
+    httpsRequest.send(JSON.stringify({ searchKeyword, blockKeyword }));
+  };
+
   _open = (e) => {
-    console.log(e);
+    console.log("Start Search");
   };
 
   _pending = (e) => {
@@ -45,11 +82,18 @@ class ApiGateway {
     if (this.onErrorHandler) this.onErrorHandler(e);
   };
 
+  _delete = (e) => {
+    if (this.onDeleteHandler) this.onDeleteHandler(e);
+  };
+
   _createEventSource = (eventSource, target) => {
     if (eventSource && eventSource.readyState !== 2) eventSource.close();
-    return new EventSource(`${ApiGateway.__server_path__}/${target}`, {
-      withCredentials: false,
-    });
+    return new EventSource(
+      `${ApiGateway.__server_path__}${ApiGateway.__search__}/${target}`,
+      {
+        withCredentials: false,
+      }
+    );
   };
 
   _addEventHandler = (eventSource, eventHandlers) => {
