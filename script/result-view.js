@@ -67,6 +67,7 @@ class ResultView {
     this.modalLayer.empty();
     this.nodes.clear();
     this.keywordGroups.clear();
+    this.removeNodes.forEach((intervalId) => clearInterval(intervalId));
     this.removeNodes.clear();
     this.queue = [];
     this.pivot = 0;
