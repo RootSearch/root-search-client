@@ -195,8 +195,8 @@ class Controller {
       "dynamic-view-group"
     );
     if (mode !== "root") return;
-    const { container: prev } = this._model.readModel("result-view", "results");
     const next = this._parser.run(data);
+    const { container: prev } = this._model.readModel("result-view", "results");
     this._model.changeModel([
       {
         view: "result-view",
