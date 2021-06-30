@@ -89,12 +89,14 @@ class Controller {
   };
 
   onSearchHandler = () => {
+    
+    const { search } = this._model.readModel("dynamic-view", "search-bar");
+    if (search.length === 0) return;
+
     const { mode } = this._model.readModel(
       "dynamic-view",
       "dynamic-view-group"
     );
-    const { search } = this._model.readModel("dynamic-view", "search-bar");
-    if (search.length === 0) return;
 
     if (mode === "search") {
       //검색 실행
