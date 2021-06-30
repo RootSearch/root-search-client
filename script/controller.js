@@ -1,5 +1,16 @@
 class Controller {
   static __gc_interval_time__ = 30000;
+
+  static preload = (path, images) => {
+    for (const key in images) {
+      if (images.hasOwnProperty(key)) {
+        const element = images[key];
+        let image = new Image();
+        image.src = path + element;
+      }
+    }
+  };
+
   constructor() {}
   linkObject = (model, view, api, parser) => {
     this._model = model;
@@ -30,20 +41,24 @@ class Controller {
     });
   };
 
-  preload = (path, images) => {
-    for (const key in images) {
-      if (images.hasOwnProperty(key)) {
-        const element = images[key];
-        let image = new Image();
-        image.src = path + element;
-      }
-    }
+  _garbageCollection = () => {
+    const { container: prev } = this._model.readModel("result-view", "results");
+    if (prev.length === 0) return;
+    const next = prev.filter((element) => element.valid);
+    if (prev.length === next.length) return;
+    this._model.changeModel([
+      {
+        view: "result-view",
+        object: "results",
+        data: { container: next },
+      },
+    ]);
   };
 
   //FIXME: remove call을 노드까지 전달하는게 좋지 않을까.
   _startGC = (intervalId) => {
     if (intervalId) return;
-    return setInterval(this.garbageCollection, Controller.__gc_interval_time__);
+    return setInterval(this._garbageCollection, Controller.__gc_interval_time__);
   };
 
   _stopGC = (intervalId) => {
@@ -53,7 +68,7 @@ class Controller {
 
   // INFO: 삭제 요청에 성공할 때마다 GC를 수행하도록 하자
   onDeleteHandler = () => {
-    this.garbageCollection();
+    this._garbageCollection();
   };
 
   /**
@@ -204,19 +219,7 @@ class Controller {
     ]);
   };
 
-  garbageCollection = () => {
-    const { container: prev } = this._model.readModel("result-view", "results");
-    if (prev.length === 0) return;
-    const next = prev.filter((element) => element.valid);
-    if (prev.length === next.length) return;
-    this._model.changeModel([
-      {
-        view: "result-view",
-        object: "results",
-        data: { container: next },
-      },
-    ]);
-  };
+
 
   removeResultHandler = (keyword) => {
     const { container: prev } = this._model.readModel("result-view", "results");

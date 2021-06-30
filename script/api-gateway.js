@@ -18,8 +18,8 @@ class ApiGateway {
     this.onDeleteHandler = eventHandlers["delete"];
   };
 
-  startSearch = (target) => {
-    this.eventSource = this._createEventSource(this.eventSource, target);
+  startSearch = (keyword) => {
+    this.eventSource = this._createEventSource(this.eventSource, keyword);
     this._addEventHandler(this.eventSource, {
       open: this._open,
       pending: this._pending,
