@@ -37,7 +37,7 @@ class Model {
     return this._model[view].object[name].data;
   };
 
-  showModel = () => {
+  getModel = () => {
     return this._model;
   };
 
