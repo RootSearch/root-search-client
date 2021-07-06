@@ -75,11 +75,6 @@ class Controller {
     return (e) => this._garbageCollection();
   }
 
-  // INFO: 삭제 요청에 성공할 때마다 GC를 수행하도록 하자
-  onDeleteHandler = () => {
-    this.garbageCollection();
-  };
-
   /**
    *  [
    *   {view : <view name>, object : <object name>, data : <new data>},
