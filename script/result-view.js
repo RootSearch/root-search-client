@@ -181,7 +181,7 @@ class ResultView {
         return;
       }
       const node = new CoffeeNode(position, element, index, {
-        leftClick: this.onClickResultHandler(element.link),
+        leftClick: () => this.onClickResultHandler(element.link),
         remove: () => this._removeNodes(element.keyword),
         restore: () => this._restoreNodes(element.keyword),
       });
