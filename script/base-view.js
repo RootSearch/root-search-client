@@ -5,9 +5,9 @@ class BaseView {
     this._controller = view.controller;
   };
 
-  addEventHandler = (eventHandlers) => {};
+  addEventHandler(eventHandlers) {}
 
-  update = (data) => {
+  update(data) {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const element = data[key];
@@ -17,11 +17,11 @@ class BaseView {
         }
       }
     }
-  };
+  }
 
-  _update = (name, data) => {
+  _update(name, data) {
     switch (name) {
       default:
     }
-  };
+  }
 }

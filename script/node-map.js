@@ -135,7 +135,7 @@ class NodeMap {
     this.positions = NodeMap.__deep_clone__(NodeMap.__root_map__);
   }
 
-  getNextPosition = () => {
+  getNextPosition() {
     if (this.positions.length === 0) return [false, -1];
     const target = NodeMap.__get_random_int__(0, this.positions.length);
     const nextPosition = this.positions[target];
@@ -143,18 +143,18 @@ class NodeMap {
       .slice(0, target)
       .concat(this.positions.slice(target + 1));
     return [nextPosition, this.positions.length];
-  };
+  }
 
-  remove = (positions) => {
+  remove(positions) {
     this.positions = this.positions.filter(
       (position) => !positions.includes(position)
     );
-  };
-  restore = (positions) => {
+  }
+  restore(positions) {
     this.positions = this.positions.concat(positions);
-  };
+  }
 
-  reset = () => {
+  reset() {
     this.positions = NodeMap.__deep_clone__(NodeMap.__root_map__);
-  };
+  }
 }

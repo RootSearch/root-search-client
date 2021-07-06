@@ -103,18 +103,18 @@ class CoffeeNode {
     );
   }
 
-  update = (valid) => {
+  update(valid) {
     this.valid = valid;
     this._updateValid(this.valid);
     return this.position;
-  };
+  }
 
-  remove = () => {
+  remove() {
     this.root.remove();
     this.modal.remove();
-  };
+  }
 
-  _setPosition = (position) => {
+  _setPosition(position) {
     this.root = $(CoffeeNode.__node__)
       .appendTo(CoffeeNode.__container__.children("#node-layer"))
       .css({
@@ -128,9 +128,9 @@ class CoffeeNode {
         top: "calc(" + position.top + "% - " + CoffeeNode.__size__ + "px)",
         left: "calc(" + position.left + "% - " + CoffeeNode.__size__ + "px)",
       });
-  };
+  }
 
-  _linkObjects = () => {
+  _linkObjects() {
     //노드 내부 객체 프리픽스
     this.decoration = {
       halo: this.root.children(".effect-halo"),
@@ -148,9 +148,9 @@ class CoffeeNode {
       snippet: this.modal.children(".context").children(".snippet"),
       thumbnail: this.modal.children(".context").children(".thumbnail"),
     };
-  };
+  }
 
-  _setData = (data) => {
+  _setData(data) {
     //내부 내용 연결
     this.isClicked = false;
     this.valid = data.valid;
@@ -171,9 +171,9 @@ class CoffeeNode {
 
     if (data.thumbnail !== null)
       this.context.thumbnail.attr("src", data.thumbnail);
-  };
+  }
 
-  _changeNodeColor = (color) => {
+  _changeNodeColor(color) {
     this.decoration.halo.css({
       "background-color": color,
     });
@@ -185,29 +185,29 @@ class CoffeeNode {
     this.decoration.modalCore.css({
       "background-color": color,
     });
-  };
+  }
 
-  _hoverEnter = () => {
+  _hoverEnter() {
     this.modal.addClass("show").removeClass("hide");
-  };
-  _hoverLeave = () => {
+  }
+  _hoverLeave() {
     this.modal.addClass("hide").removeClass("show");
-  };
+  }
 
-  _leftClick = () => {
+  _leftClick() {
     this.decoration.image.removeClass("coffee-bean").addClass("coffee-cup");
     this.decoration.modalCoreImage
       .removeClass("coffee-bean")
       .addClass("coffee-cup");
     this.isClicked = true;
-  };
+  }
 
-  _updateValid = (valid) => {
+  _updateValid(valid) {
     if (valid) this._restore();
     else this._remove();
-  };
+  }
 
-  _remove = () => {
+  _remove() {
     this.decoration.halo
       .addClass("effect-halo-blink")
       .removeClass("effect-halo-runnig");
@@ -216,9 +216,9 @@ class CoffeeNode {
 
     //FIXME: 이 부분은 지금 노드를 본인이 스스로 삭제하고있음. 낭비 발생.
     // this.lifetime = setTimeout(this.remove, CoffeeNode.__lifetime__);
-  };
+  }
 
-  _restore = () => {
+  _restore() {
     this.decoration.halo
       .addClass("effect-halo-runnig")
       .removeClass("effect-halo-blink");
@@ -226,5 +226,5 @@ class CoffeeNode {
 
     //FIXME: 삭제를 취소하는 부분
     // clearTimeout(this.lifetime);
-  };
+  }
 }

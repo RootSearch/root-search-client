@@ -10,9 +10,9 @@ class Model {
     this._model = modal;
   }
 
-  linkObject = (view) => {
+  linkObject(view) {
     this._view = view;
-  };
+  }
 
   /**
    * @param {*} changes
@@ -21,7 +21,7 @@ class Model {
    *   ...
    *  ]
    */
-  changeModel = (changes) => {
+  changeModel(changes) {
     for (const key in changes) {
       if (changes.hasOwnProperty(key)) {
         const element = changes[key];
@@ -31,22 +31,22 @@ class Model {
       }
     }
     this._updateView();
-  };
+  }
 
-  readModel = (view, name) => {
+  readModel(view, name) {
     return this._model[view].object[name].data;
-  };
+  }
 
-  showModel = () => {
+  getModel() {
     return this._model;
-  };
+  }
 
-  _updateView = () => {
+  _updateView() {
     this._modifiedBubbling();
     this._view.update(this._model);
-  };
+  }
 
-  _modifiedBubbling = () => {
+  _modifiedBubbling() {
     for (const target in this._model) {
       if (this._model.hasOwnProperty(target)) {
         const view = this._model[target];
@@ -58,5 +58,5 @@ class Model {
         }
       }
     }
-  };
+  }
 }
