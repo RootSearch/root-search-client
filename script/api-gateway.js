@@ -21,10 +21,10 @@ class ApiGateway {
   startSearch(keyword) {
     this.eventSource = this._createEventSource(this.eventSource, keyword);
     this._addEventHandler(this.eventSource, {
-      open: this._open,
-      pending: this._pending,
-      success: this._success,
-      error: this._error,
+      open: this._open(),
+      pending: this._pending(),
+      success: this._success(),
+      error: this._error(),
     });
   }
 
@@ -66,24 +66,34 @@ class ApiGateway {
     httpsRequest.send(JSON.stringify({ searchKeyword, blockKeyword }));
   }
 
-  _open(e) {
-    console.log("Start Search");
+  _open() {
+    return (e) => {
+      console.log("Start Search");
+    };
   }
 
-  _pending(e) {
-    if (this.onPendingHandler) this.onPendingHandler(e);
+  _pending() {
+    return (e) => {
+      if (this.onPendingHandler) this.onPendingHandler(e);
+    };
   }
 
-  _success(message, data) {
-    if (this.onSuccessHandler) this.onSuccessHandler(JSON.parse(data));
+  _success() {
+    return (message, data) => {
+      if (this.onSuccessHandler) this.onSuccessHandler(JSON.parse(data));
+    };
   }
 
-  _error(e) {
-    if (this.onErrorHandler) this.onErrorHandler(e);
+  _error() {
+    return (e) => {
+      if (this.onErrorHandler) this.onErrorHandler(e);
+    };
   }
 
-  _delete(e) {
-    if (this.onDeleteHandler) this.onDeleteHandler(e);
+  _delete() {
+    return (e) => {
+      if (this.onDeleteHandler) this.onDeleteHandler(e);
+    };
   }
 
   _createEventSource(eventSource, target) {
