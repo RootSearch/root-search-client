@@ -3,12 +3,12 @@ class ApiGateway {
   static __search__ = "/search";
   static __block__ = "/block";
 
-  linkObject = (controller) => {
-    this._controller = controller;
-  };
-
   constructor() {
     this.eventSource = undefined;
+  }
+
+  linkObject(controller) {
+    this._controller = controller;
   }
 
   addEventHandler(eventHandlers) {

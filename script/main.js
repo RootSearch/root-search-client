@@ -1,30 +1,3 @@
-$(document).ready(() => {
-  const model = new Model(viewModel);
-  const view = new View();
-  const controller = new Controller();
-  const base = new BaseView();
-  const dynamic = new DynamicView();
-  const result = new ResultView();
-  const apigateway = new ApiGateway();
-  const nodemap = new NodeMap();
-  const parser = new ResultParser(prototype);
-
-  result.linkObject(view, nodemap);
-  dynamic.linkObject(view);
-  model.linkObject(view);
-  controller.linkObject(model, view, apigateway, parser);
-
-  view.linkObject(controller, {
-    "base-view": base,
-    "dynamic-view": dynamic,
-    "result-view": result,
-  });
-
-  controller.addEventHandler();
-  cancelMouseEvent();
-  console.log("ready");
-});
-
 const prototype = {
   id: "SeqId",
   title: "Title",
@@ -91,3 +64,30 @@ const cancelMouseEvent = () => {
     return false;
   });
 };
+
+$(document).ready(() => {
+  const model = new Model(viewModel);
+  const view = new View();
+  const controller = new Controller();
+  const base = new BaseView();
+  const dynamic = new DynamicView();
+  const result = new ResultView();
+  const apigateway = new ApiGateway();
+  const nodemap = new NodeMap();
+  const parser = new ResultParser(prototype);
+
+  result.linkObject(view, nodemap);
+  dynamic.linkObject(view);
+  model.linkObject(view);
+  controller.linkObject(model, view, apigateway, parser);
+
+  view.linkObject(controller, {
+    "base-view": base,
+    "dynamic-view": dynamic,
+    "result-view": result,
+  });
+
+  controller.addEventHandler();
+  cancelMouseEvent();
+  console.log("ready");
+});

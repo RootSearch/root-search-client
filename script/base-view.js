@@ -1,9 +1,9 @@
 class BaseView {
   constructor() {}
-  linkObject = (view) => {
+  linkObject(view) {
     this._view = view;
     this._controller = view.controller;
-  };
+  }
 
   addEventHandler(eventHandlers) {}
 
