@@ -72,7 +72,7 @@ class Controller {
 
   // INFO: 삭제 요청에 성공할 때마다 GC를 수행하도록 하자
   onDeleteHandler() {
-    this._garbageCollection();
+    return (e) => this._garbageCollection();
   }
 
   /**
@@ -225,7 +225,7 @@ class Controller {
   }
 
   stopSearchHandler() {
-    return () => {
+    return (e) => {
       this._api.stopSearch();
       this._model.changeModel([
         {
