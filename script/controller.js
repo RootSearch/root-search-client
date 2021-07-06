@@ -12,14 +12,15 @@ class Controller {
   };
 
   constructor() {}
-  linkObject = (model, view, api, parser) => {
+
+  linkObject(model, view, api, parser) {
     this._model = model;
     this._view = view;
     this._api = api;
     this._parser = parser;
-  };
+  }
 
-  addEventHandler = () => {
+  addEventHandler() {
     this._view.addEventHandler({
       "dynamic-view": {
         "search-bar": this.onChangeHandler,
@@ -39,9 +40,9 @@ class Controller {
       error: (e) => console.log(e),
       delete: this.onDeleteHandler,
     });
-  };
+  }
 
-  _garbageCollection = () => {
+  _garbageCollection() {
     const { container: prev } = this._model.readModel("result-view", "results");
     if (prev.length === 0) return;
     const next = prev.filter((element) => element.valid);
@@ -53,23 +54,26 @@ class Controller {
         data: { container: next },
       },
     ]);
-  };
+  }
 
   //FIXME: remove call을 노드까지 전달하는게 좋지 않을까.
-  _startGC = (intervalId) => {
+  _startGC(intervalId) {
     if (intervalId) return;
-    return setInterval(this._garbageCollection, Controller.__gc_interval_time__);
-  };
+    return setInterval(
+      this._garbageCollection,
+      Controller.__gc_interval_time__
+    );
+  }
 
-  _stopGC = (intervalId) => {
+  _stopGC(intervalId) {
     if (intervalId) clearInterval(intervalId);
     return 0;
-  };
+  }
 
   // INFO: 삭제 요청에 성공할 때마다 GC를 수행하도록 하자
-  onDeleteHandler = () => {
+  onDeleteHandler() {
     this._garbageCollection();
-  };
+  }
 
   /**
    *  [
@@ -78,7 +82,7 @@ class Controller {
    *  ]
    */
 
-  onChangeHandler = (e) => {
+  onChangeHandler(e) {
     this._model.changeModel([
       {
         view: "dynamic-view",
@@ -86,10 +90,9 @@ class Controller {
         data: { search: $(e.target).val().trim() },
       },
     ]);
-  };
+  }
 
-  onSearchHandler = () => {
-    
+  onSearchHandler() {
     const { search } = this._model.readModel("dynamic-view", "search-bar");
     if (search.length === 0) return;
 
@@ -188,8 +191,8 @@ class Controller {
         },
       ]);
     }
-  };
-  onReceiveHandler = (data) => {
+  }
+  onReceiveHandler(data) {
     const { mode } = this._model.readModel(
       "dynamic-view",
       "dynamic-view-group"
@@ -204,13 +207,15 @@ class Controller {
         data: { container: prev.concat(next) },
       },
     ]);
-  };
+  }
 
-  onClickResultHandler = (link) => () => {
-    window.open(link, "_blank").focus();
-  };
+  onClickResultHandler(link) {
+    return () => {
+      window.open(link, "_blank").focus();
+    };
+  }
 
-  stopSearchHandler = () => {
+  stopSearchHandler() {
     this._api.stopSearch();
     this._model.changeModel([
       {
@@ -219,11 +224,9 @@ class Controller {
         data: { mode: "end" },
       },
     ]);
-  };
+  }
 
-
-
-  removeResultHandler = (keyword) => {
+  removeResultHandler(keyword) {
     const { container: prev } = this._model.readModel("result-view", "results");
     const next = prev.map((element) =>
       keyword === element.keyword ? { ...element, valid: false } : element
@@ -235,17 +238,17 @@ class Controller {
         data: { container: next },
       },
     ]);
-  };
+  }
 
-  requestDeleteHandler = (blockKeyword) => {
+  requestDeleteHandler(blockKeyword) {
     const { search: searchKeyword } = this._model.readModel(
       "dynamic-view",
       "search-bar"
     );
     this._api.removeKeyword(searchKeyword, blockKeyword);
-  };
+  }
 
-  restoreResultHandler = (keyword) => {
+  restoreResultHandler(keyword) {
     const { container: prev } = this._model.readModel("result-view", "results");
     const next = prev.map((element) =>
       keyword === element.keyword ? { ...element, valid: true } : element
@@ -257,5 +260,5 @@ class Controller {
         data: { container: next },
       },
     ]);
-  };
+  }
 }

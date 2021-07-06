@@ -8,17 +8,17 @@ class DynamicView {
       helo: $("#root-context >.node-container.root > .effect-halo"),
     };
   }
-  linkObject = (view) => {
+  linkObject(view) {
     this._view = view;
     this._controller = view.controller;
-  };
+  }
 
-  addEventHandler = (eventHandlers) => {
+  addEventHandler(eventHandlers) {
     this.searchBar.change(eventHandlers["search-bar"]);
     this.centerButton.container.click(eventHandlers["root-button"]);
-  };
+  }
 
-  update = (data) => {
+  update(data) {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const element = data[key];
@@ -28,9 +28,9 @@ class DynamicView {
         }
       }
     }
-  };
+  }
 
-  _update = (name, data) => {
+  _update(name, data) {
     switch (name) {
       case "search-bar":
         this._onChangeSearchBar(data);
@@ -43,12 +43,12 @@ class DynamicView {
         break;
       default:
     }
-  };
-  _onChangeSearchBar = ({ search }) => {
+  }
+  _onChangeSearchBar({ search }) {
     this.searchBar.val(search);
-  };
+  }
 
-  _switchCenterButton = ({ mode }) => {
+  _switchCenterButton({ mode }) {
     if (mode === "search") {
       this.centerButton.helo
         .addClass("effect-halo-blink")
@@ -70,9 +70,9 @@ class DynamicView {
         .addClass("effect-halo-blink")
         .removeClass("effect-halo-runnig");
     }
-  };
+  }
 
-  _switchDynamicView = ({ mode }) => {
+  _switchDynamicView({ mode }) {
     if (mode === "search") {
       this.searchBar.addClass("interaction-view");
       this.dynamicViews.addClass("search-mode").removeClass("root-mode");
@@ -83,5 +83,5 @@ class DynamicView {
     if (mode === "root") {
       this.dynamicViews.addClass("root-mode").removeClass("search-mode");
     }
-  };
+  }
 }

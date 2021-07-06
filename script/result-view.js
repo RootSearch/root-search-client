@@ -16,13 +16,13 @@ class ResultView {
     this.keywordGroups = new Map();
     this.removeNodes = new Map();
   }
-  linkObject = (view, map) => {
+  linkObject(view, map) {
     this._view = view;
     this._controller = view.controller;
     this._map = map;
-  };
+  }
 
-  addEventHandler = (eventHandlers) => {
+  addEventHandler(eventHandlers) {
     this.onClickResultHandler = eventHandlers["click-result"];
     this.onRemoveResultHandler = eventHandlers["remove-result"];
     this.onRestoreResultHandler = eventHandlers["restore-result"];
@@ -30,9 +30,9 @@ class ResultView {
     this.mapRestorePosition = eventHandlers["restore-position"];
     this.onStopHandler = eventHandlers["stop-search"];
     this.requestDeleteHandler = eventHandlers["request-delete"];
-  };
+  }
 
-  update = (data) => {
+  update(data) {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const element = data[key];
@@ -42,9 +42,9 @@ class ResultView {
         }
       }
     }
-  };
+  }
 
-  _update = (name, data) => {
+  _update(name, data) {
     switch (name) {
       case "results":
         if (data.container.length === this.pivot) this._refresh(data);
@@ -59,9 +59,9 @@ class ResultView {
         break;
       default:
     }
-  };
+  }
 
-  _reset = () => {
+  _reset() {
     this._map.reset();
     this.nodeLayer.empty();
     this.modalLayer.empty();
@@ -71,20 +71,20 @@ class ResultView {
     this.removeNodes.clear();
     this.queue = [];
     this.pivot = 0;
-  };
+  }
 
-  _changeState = ({ state }) => {
+  _changeState({ state }) {
     if (state === "running") this.intervalId = this._start(this.intervalId);
     if (state === "pending");
     if (state === "idle") this.intervalId = this._stop(this.intervalId);
-  };
+  }
 
-  _changeMode = ({ mode }) => {
+  _changeMode({ mode }) {
     if (mode === "search") this._reset();
     if (mode === "root");
-  };
+  }
 
-  _refresh = ({ container }) => {
+  _refresh({ container }) {
     const target = container.filter(
       (element) => element.valid !== this.nodes.get(element.id)?.valid
     );
@@ -98,36 +98,36 @@ class ResultView {
     });
     if (remove.length > 0) this._map.restore(remove);
     if (restore.length > 0) this._map.remove(restore);
-  };
+  }
 
-  _enqueue = ({ container }) => {
+  _enqueue({ container }) {
     this.queue = this.queue.concat(container.slice(this.pivot));
     this.pivot = container.length;
-  };
+  }
 
-  _clean = ({ container }) => {
+  _clean({ container }) {
     this.nodes.forEach((node, id) => {
       if (node.valid) return;
       node.remove();
       this.nodes.delete(id);
     });
     this.pivot = container.length;
-  };
+  }
 
-  _start = (intervalId) => {
+  _start(intervalId) {
     if (intervalId) return;
     this.isDrawing = true;
     return this._draw();
-  };
+  }
 
-  _stop = (intervalId) => {
+  _stop(intervalId) {
     if (!intervalId) return;
     this.isDrawing = false;
     clearInterval(intervalId);
     return null;
-  };
+  }
 
-  _removeNodes = (keyword) => {
+  _removeNodes(keyword) {
     // do this function just one time for each keywords
     if (this.removeNodes.has(keyword)) return;
 
@@ -147,9 +147,9 @@ class ResultView {
         this.requestDeleteHandler(keyword);
       }, ResultView.__restoreTime__)
     );
-  };
+  }
 
-  _restoreNodes = (keyword) => {
+  _restoreNodes(keyword) {
     // do this function just one time for each keywords
     if (!this.removeNodes.has(keyword)) return;
 
@@ -162,9 +162,9 @@ class ResultView {
     // cancle delete request
     clearInterval(this.removeNodes.get(keyword));
     this.removeNodes.delete(keyword);
-  };
+  }
 
-  _draw = () => {
+  _draw() {
     const intervalId = setInterval(() => {
       if (this.queue.length === 0) return;
       let element = this.queue.shift();
@@ -191,5 +191,5 @@ class ResultView {
       else this.keywordGroups.set(element.keyword, [node]);
     }, ResultView.__intervalTime__);
     return intervalId;
-  };
+  }
 }

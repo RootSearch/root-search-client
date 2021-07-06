@@ -1,12 +1,12 @@
 class View {
   constructor() {}
 
-  linkObject = (controller, views) => {
+  linkObject(controller, views) {
     this._controller = controller;
     this._views = views;
-  };
+  }
 
-  addEventHandler = (eventHandlers) => {
+  addEventHandler(eventHandlers) {
     if (eventHandlers === undefined) return;
     for (const key in eventHandlers) {
       if (eventHandlers.hasOwnProperty(key)) {
@@ -14,9 +14,9 @@ class View {
         this._views[key].addEventHandler(element);
       }
     }
-  };
+  }
 
-  update = (model) => {
+  update(model) {
     if (model === undefined) return;
     for (const key in model) {
       if (model.hasOwnProperty(key)) {
@@ -27,5 +27,5 @@ class View {
         }
       }
     }
-  };
+  }
 }
