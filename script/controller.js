@@ -23,22 +23,22 @@ class Controller {
   addEventHandler() {
     this._view.addEventHandler({
       "dynamic-view": {
-        "search-bar": this.onChangeHandler,
-        "root-button": this.onSearchHandler,
+        "search-bar": this.onChangeHandler(),
+        "root-button": this.onSearchHandler(),
       },
       "result-view": {
-        "click-result": this.onClickResultHandler,
-        "remove-result": this.removeResultHandler,
-        "request-delete": this.requestDeleteHandler,
-        "restore-result": this.restoreResultHandler,
-        "stop-search": this.stopSearchHandler,
+        "click-result": this.onClickResultHandler(),
+        "remove-result": this.removeResultHandler(),
+        "request-delete": this.requestDeleteHandler(),
+        "restore-result": this.restoreResultHandler(),
+        "stop-search": this.stopSearchHandler(),
       },
     });
     this._api.addEventHandler({
       pending: (e) => console.log(e),
-      success: this.onReceiveHandler,
+      success: this.onReceiveHandler(),
       error: (e) => console.log(e),
-      delete: this.onDeleteHandler,
+      delete: this.onDeleteHandler(),
     });
   }
 
@@ -82,183 +82,206 @@ class Controller {
    *  ]
    */
 
-  onChangeHandler(e) {
-    this._model.changeModel([
-      {
-        view: "dynamic-view",
-        object: "search-bar",
-        data: { search: $(e.target).val().trim() },
-      },
-    ]);
-  }
-
-  onSearchHandler() {
-    const { search } = this._model.readModel("dynamic-view", "search-bar");
-    if (search.length === 0) return;
-
-    const { mode } = this._model.readModel(
-      "dynamic-view",
-      "dynamic-view-group"
-    );
-
-    if (mode === "search") {
-      //검색 실행
-      this._api.startSearch(search);
-
-      //WARN: gc 에러가 존재함 사용 금지
-      //gc 시작
-      // this.intervalId = this._startGC(this.intervalId);
-
-      // 노드 낙하
-      this._model.changeModel([
-        {
-          view: "dynamic-view",
-          object: "center-button",
-          data: { mode: "falling" },
-        },
-        {
-          view: "dynamic-view",
-          object: "dynamic-view-group",
-          data: { mode: "falling" },
-        },
-      ]);
-      setTimeout(() => {
-        //화면 변경
-        this._model.changeModel([
-          {
-            view: "dynamic-view",
-            object: "center-button",
-            data: { mode: "root" },
-          },
-          {
-            view: "dynamic-view",
-            object: "dynamic-view-group",
-            data: { mode: "root" },
-          },
-          {
-            view: "result-view",
-            object: "result-layer",
-            data: { mode: "root" },
-          },
-          {
-            view: "result-view",
-            object: "draw-state",
-            data: { state: "running" },
-          },
-        ]);
-      }, 2000);
-    }
-
-    if (mode === "root") {
-      //검색 종료
-      this._api.stopSearch();
-
-      //WARN: gc 에러가 존재함 사용 금지
-      //gc 종료
-      // this.intervalId = this._stopGC(this.intervalId);
-
-      //화면 복귀
+  onChangeHandler() {
+    return (e) => {
       this._model.changeModel([
         {
           view: "dynamic-view",
           object: "search-bar",
-          data: { search: "" },
+          data: { search: $(e.target).val().trim() },
         },
-        {
-          view: "dynamic-view",
-          object: "center-button",
-          data: { mode: "search" },
-        },
-        {
-          view: "dynamic-view",
-          object: "dynamic-view-group",
-          data: { mode: "search" },
-        },
-        {
-          view: "result-view",
-          object: "result-layer",
-          data: { mode: "search" },
-        },
-        {
-          view: "result-view",
-          object: "draw-state",
-          data: { state: "idle" },
-        },
+      ]);
+    };
+  }
+
+  onSearchHandler() {
+    return (e) => {
+      const { search } = this._model.readModel("dynamic-view", "search-bar");
+      if (search.length === 0) return;
+
+      const { mode } = this._model.readModel(
+        "dynamic-view",
+        "dynamic-view-group"
+      );
+
+      if (mode === "search") {
+        //검색 실행
+        this._api.startSearch(search);
+
+        //WARN: gc 에러가 존재함 사용 금지
+        //gc 시작
+        // this.intervalId = this._startGC(this.intervalId);
+
+        // 노드 낙하
+        this._model.changeModel([
+          {
+            view: "dynamic-view",
+            object: "center-button",
+            data: { mode: "falling" },
+          },
+          {
+            view: "dynamic-view",
+            object: "dynamic-view-group",
+            data: { mode: "falling" },
+          },
+        ]);
+        setTimeout(() => {
+          //화면 변경
+          this._model.changeModel([
+            {
+              view: "dynamic-view",
+              object: "center-button",
+              data: { mode: "root" },
+            },
+            {
+              view: "dynamic-view",
+              object: "dynamic-view-group",
+              data: { mode: "root" },
+            },
+            {
+              view: "result-view",
+              object: "result-layer",
+              data: { mode: "root" },
+            },
+            {
+              view: "result-view",
+              object: "draw-state",
+              data: { state: "running" },
+            },
+          ]);
+        }, 2000);
+      }
+
+      if (mode === "root") {
+        //검색 종료
+        this._api.stopSearch();
+
+        //WARN: gc 에러가 존재함 사용 금지
+        //gc 종료
+        // this.intervalId = this._stopGC(this.intervalId);
+
+        //화면 복귀
+        this._model.changeModel([
+          {
+            view: "dynamic-view",
+            object: "search-bar",
+            data: { search: "" },
+          },
+          {
+            view: "dynamic-view",
+            object: "center-button",
+            data: { mode: "search" },
+          },
+          {
+            view: "dynamic-view",
+            object: "dynamic-view-group",
+            data: { mode: "search" },
+          },
+          {
+            view: "result-view",
+            object: "result-layer",
+            data: { mode: "search" },
+          },
+          {
+            view: "result-view",
+            object: "draw-state",
+            data: { state: "idle" },
+          },
+          {
+            view: "result-view",
+            object: "results",
+            data: { container: [] },
+          },
+        ]);
+      }
+    };
+  }
+  onReceiveHandler() {
+    return (data) => {
+      const { mode } = this._model.readModel(
+        "dynamic-view",
+        "dynamic-view-group"
+      );
+      if (mode !== "root") return;
+      const next = this._parser.run(data);
+      const { container: prev } = this._model.readModel(
+        "result-view",
+        "results"
+      );
+      this._model.changeModel([
         {
           view: "result-view",
           object: "results",
-          data: { container: [] },
+          data: { container: prev.concat(next) },
         },
       ]);
-    }
-  }
-  onReceiveHandler(data) {
-    const { mode } = this._model.readModel(
-      "dynamic-view",
-      "dynamic-view-group"
-    );
-    if (mode !== "root") return;
-    const next = this._parser.run(data);
-    const { container: prev } = this._model.readModel("result-view", "results");
-    this._model.changeModel([
-      {
-        view: "result-view",
-        object: "results",
-        data: { container: prev.concat(next) },
-      },
-    ]);
+    };
   }
 
-  onClickResultHandler(link) {
-    return () => {
+  onClickResultHandler() {
+    return (link) => {
       window.open(link, "_blank").focus();
     };
   }
 
   stopSearchHandler() {
-    this._api.stopSearch();
-    this._model.changeModel([
-      {
-        view: "dynamic-view",
-        object: "center-button",
-        data: { mode: "end" },
-      },
-    ]);
+    return () => {
+      this._api.stopSearch();
+      this._model.changeModel([
+        {
+          view: "dynamic-view",
+          object: "center-button",
+          data: { mode: "end" },
+        },
+      ]);
+    };
   }
 
-  removeResultHandler(keyword) {
-    const { container: prev } = this._model.readModel("result-view", "results");
-    const next = prev.map((element) =>
-      keyword === element.keyword ? { ...element, valid: false } : element
-    );
-    this._model.changeModel([
-      {
-        view: "result-view",
-        object: "results",
-        data: { container: next },
-      },
-    ]);
+  removeResultHandler() {
+    return (keyword) => {
+      const { container: prev } = this._model.readModel(
+        "result-view",
+        "results"
+      );
+      const next = prev.map((element) =>
+        keyword === element.keyword ? { ...element, valid: false } : element
+      );
+      this._model.changeModel([
+        {
+          view: "result-view",
+          object: "results",
+          data: { container: next },
+        },
+      ]);
+    };
   }
 
-  requestDeleteHandler(blockKeyword) {
-    const { search: searchKeyword } = this._model.readModel(
-      "dynamic-view",
-      "search-bar"
-    );
-    this._api.removeKeyword(searchKeyword, blockKeyword);
+  requestDeleteHandler() {
+    return (blockKeyword) => {
+      const { search: searchKeyword } = this._model.readModel(
+        "dynamic-view",
+        "search-bar"
+      );
+      this._api.removeKeyword(searchKeyword, blockKeyword);
+    };
   }
 
-  restoreResultHandler(keyword) {
-    const { container: prev } = this._model.readModel("result-view", "results");
-    const next = prev.map((element) =>
-      keyword === element.keyword ? { ...element, valid: true } : element
-    );
-    this._model.changeModel([
-      {
-        view: "result-view",
-        object: "results",
-        data: { container: next },
-      },
-    ]);
+  restoreResultHandler() {
+    return (keyword) => {
+      const { container: prev } = this._model.readModel(
+        "result-view",
+        "results"
+      );
+      const next = prev.map((element) =>
+        keyword === element.keyword ? { ...element, valid: true } : element
+      );
+      this._model.changeModel([
+        {
+          view: "result-view",
+          object: "results",
+          data: { container: next },
+        },
+      ]);
+    };
   }
 }
