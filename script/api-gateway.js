@@ -1,5 +1,5 @@
 class ApiGateway {
-  static __server_path__ = "https://rootsearch.vumigration.com:5001";
+  static __server_path__ = "https://root-search.herokuapp.com";
   static __search__ = "/search";
   static __block__ = "/block";
 
